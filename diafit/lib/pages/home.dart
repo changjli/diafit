@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:diafit/components/custom_bottom_navigation_bar.dart';
 
 // Future<void> main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -32,18 +33,59 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () async {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-
-        pref.remove("login");
-        pref.remove("api_token");
-
-        print(pref.getBool("login"));
-
-        Navigator.pushReplacementNamed(context, '/login');
-      },
-      child: const Text('logout'),
+    return const Scaffold(
+      bottomNavigationBar: CustomBottomNavigationBar(),
+      // BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.person,
+      //       ),
+      //       label: 'Profile',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.receipt,
+      //       ),
+      //       label: 'Order',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.home,
+      //       ),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.health_and_safety,
+      //       ),
+      //       label: 'Tracker',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.book,
+      //       ),
+      //       label: 'Library',
+      //     ),
+      //   ],
+      //   currentIndex: selectedIndex,
+      //   onTap: _onItemTapped,
+      // ),
     );
+
+    // ElevatedButton(
+    //   onPressed: () => CustomFunction.logout(
+    //       Navigator.pushReplacementNamed(context, '/login')),
+    //   // () async {
+    //   //   SharedPreferences pref = await SharedPreferences.getInstance();
+
+    //   //   pref.remove("login");
+    //   //   pref.remove("api_token");
+
+    //   //   Navigator.pushReplacementNamed(context, '/login');
+    //   // },
+    //   child: const Text('logout'),
+    // );
   }
 }
