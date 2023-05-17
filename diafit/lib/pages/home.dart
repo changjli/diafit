@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:diafit/components/custom_bottom_navigation_bar.dart';
 
 // Future<void> main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -34,45 +33,49 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      bottomNavigationBar: CustomBottomNavigationBar(),
-      // BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.person,
-      //       ),
-      //       label: 'Profile',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.receipt,
-      //       ),
-      //       label: 'Order',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.home,
-      //       ),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.health_and_safety,
-      //       ),
-      //       label: 'Tracker',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.book,
-      //       ),
-      //       label: 'Library',
-      //     ),
-      //   ],
-      //   currentIndex: selectedIndex,
-      //   onTap: _onItemTapped,
-      // ),
+      body: Center(child: Text('hello world')),
     );
+    // return CustomBottomNavigationBar();
+    // return const Scaffold(
+    //   bottomNavigationBar: CustomBottomNavigationBar(),
+    // BottomNavigationBar(
+    //   type: BottomNavigationBarType.fixed,
+    //   items: const [
+    //     BottomNavigationBarItem(
+    //       icon: Icon(
+    //         Icons.person,
+    //       ),
+    //       label: 'Profile',
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(
+    //         Icons.receipt,
+    //       ),
+    //       label: 'Order',
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(
+    //         Icons.home,
+    //       ),
+    //       label: 'Home',
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(
+    //         Icons.health_and_safety,
+    //       ),
+    //       label: 'Tracker',
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(
+    //         Icons.book,
+    //       ),
+    //       label: 'Library',
+    //     ),
+    //   ],
+    //   currentIndex: selectedIndex,
+    //   onTap: _onItemTapped,
+    // ),
+    // );
 
     // ElevatedButton(
     //   onPressed: () => CustomFunction.logout(

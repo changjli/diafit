@@ -1,3 +1,4 @@
+import 'package:diafit/components/custom_bottom_navigation_bar.dart';
 import 'package:diafit/pages/login.dart';
 import 'package:diafit/pages/register.dart';
 import 'package:diafit/pages/home.dart';
@@ -19,12 +20,12 @@ Future<void> main() async {
         '/login': (context) {
           // auto login
           if (login != null || login == true) {
-            return const Home();
+            return const CustomBottomNavigationBar();
           }
           return const Login();
         },
         '/register': (context) => const Register(),
-        '/home': (context) => const Home(),
+        '/home': (context) => const CustomBottomNavigationBar(),
         // {
         //   if (login == null || login == false) {
         //     return const Login();

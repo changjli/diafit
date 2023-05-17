@@ -1,5 +1,5 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
+import 'package:diafit/controller/custom_function.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -11,6 +11,20 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: ElevatedButton(
+        onPressed: () => CustomFunction.logout(
+            Navigator.pushReplacementNamed(context, '/login')),
+        // () async {
+        //   //   SharedPreferences pref = await SharedPreferences.getInstance();
+
+        //   //   pref.remove("login");
+        //   //   pref.remove("api_token");
+
+        //   //   Navigator.pushReplacementNamed(context, '/login');
+        //   // },
+        child: const Text('logout'),
+      ),
+    );
   }
 }

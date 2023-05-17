@@ -3,64 +3,58 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:diafit/pages/home.dart';
 import 'package:diafit/pages/profile.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
+class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
 
-  @override
-  State<CustomBottomNavigationBar> createState() =>
-      _CustomBottomNavigationBarState();
-}
-
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   // int selectedIndex = 0;
-
-  List<Widget> _buildScreens() {
-    return [const Home(), const Profile()];
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.person),
-        title: ("Profile"),
-        // activeColorPrimary: CupertinoColors.activeBlue,
-        // inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.receipt),
-        title: ("Order"),
-        // activeColorPrimary: CupertinoColors.activeBlue,
-        // inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.home),
-        title: ("Home"),
-        // activeColorPrimary: CupertinoColors.activeBlue,
-        // inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.health_and_safety),
-        title: ("Tracker"),
-        // activeColorPrimary: CupertinoColors.activeBlue,
-        // inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.book),
-        title: ("Library"),
-        // activeColorPrimary: CupertinoColors.activeBlue,
-        // inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-    ];
-  }
-
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _buildScreens() {
+      return [const Profile(), const Home()];
+    }
+
+    List<PersistentBottomNavBarItem> _navBarsItems() {
+      return [
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.person),
+          title: ("Profile"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        // PersistentBottomNavBarItem(
+        //   icon: const Icon(Icons.receipt),
+        //   title: ("Order"),
+        //   // activeColorPrimary: CupertinoColors.activeBlue,
+        //   // inactiveColorPrimary: CupertinoColors.systemGrey,
+        // ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.home),
+          title: ("Home"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        // PersistentBottomNavBarItem(
+        //   icon: const Icon(Icons.health_and_safety),
+        //   title: ("Tracker"),
+        //   // activeColorPrimary: CupertinoColors.activeBlue,
+        //   // inactiveColorPrimary: CupertinoColors.systemGrey,
+        // ),
+        // PersistentBottomNavBarItem(
+        //   icon: const Icon(Icons.book),
+        //   title: ("Library"),
+        //   // activeColorPrimary: CupertinoColors.activeBlue,
+        //   // inactiveColorPrimary: CupertinoColors.systemGrey,
+        // ),
+      ];
+    }
+
+    final PersistentTabController controller =
+        PersistentTabController(initialIndex: 0);
+
     return PersistentTabView(
       context,
-      controller: _controller,
+      controller: controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
@@ -129,10 +123,4 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     //   onTap: _onItemTapped,
     // );
   }
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     selectedIndex = index;
-  //   });
-  // }
 }
