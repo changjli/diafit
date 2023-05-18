@@ -1,8 +1,6 @@
 import 'package:diafit/components/custom_bottom_navigation_bar.dart';
 import 'package:diafit/pages/login.dart';
 import 'package:diafit/pages/register.dart';
-import 'package:diafit/pages/home.dart';
-import 'package:diafit/pages/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +30,7 @@ Future<void> main() async {
         //   }
         //   return const Home();
         // },
-        '/profile': (context) => const Profile(),
+        // '/profile': (context) => const Profile(),
       },
     ),
   );

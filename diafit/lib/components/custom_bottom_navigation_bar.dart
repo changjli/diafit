@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:diafit/pages/home.dart';
 import 'package:diafit/pages/profile.dart';
+import 'package:diafit/pages/login.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
@@ -17,11 +18,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
     List<PersistentBottomNavBarItem> _navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.person),
-          title: ("Profile"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.grey,
-        ),
+            icon: const Icon(Icons.person),
+            title: ("Profile"),
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.grey,
+            routeAndNavigatorSettings: RouteAndNavigatorSettings(routes: {
+              '/login': (context) => const Login(),
+            })),
         // PersistentBottomNavBarItem(
         //   icon: const Icon(Icons.receipt),
         //   title: ("Order"),
@@ -29,11 +32,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
         //   // inactiveColorPrimary: CupertinoColors.systemGrey,
         // ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.home),
-          title: ("Home"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.grey,
-        ),
+            icon: const Icon(Icons.home),
+            title: ("Home"),
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.grey,
+            routeAndNavigatorSettings: RouteAndNavigatorSettings(routes: {
+              '/login': (context) => const Login(),
+            })),
         // PersistentBottomNavBarItem(
         //   icon: const Icon(Icons.health_and_safety),
         //   title: ("Tracker"),
