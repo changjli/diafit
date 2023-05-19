@@ -13,7 +13,7 @@ Future<void> main() async {
   runApp(
     MaterialApp(
       initialRoute: '/login',
-      // theme: {},
+      // theme: const {},
       routes: {
         '/login': (context) {
           // auto login
@@ -24,14 +24,29 @@ Future<void> main() async {
         },
         '/register': (context) => const Register(),
         '/home': (context) => const CustomBottomNavigationBar(),
-        // {
-        //   if (login == null || login == false) {
-        //     return const Login();
-        //   }
-        //   return const Home();
-        // },
-        // '/profile': (context) => const Profile(),
       },
+
+      // routes: {
+      //   '/login': (context) {
+      //     // auto login
+      //     if (login != null || login == true) {
+      //       return const Home();
+      //     }
+      //     return const Login();
+      //   },
+      //   '/register': (context) => const Register(),
+      //   '/home': (context) => const Home(),
+      //   // {
+      //   //   if (login == null || login == false) {
+      //   //     return const Login();
+      //   //   }
+      //   //   return const Home();
+      //   // },
+      //   '/profile': (context) => const Profile(),
+      //   '/order': (context) => const Order(),
+      //   '/tracker': (context) => const Tracker(),
+      //   '/library': (context) => const Library(),
+      // },
     ),
   );
 }

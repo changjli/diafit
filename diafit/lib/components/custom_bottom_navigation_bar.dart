@@ -2,18 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:diafit/pages/home.dart';
 import 'package:diafit/pages/profile.dart';
-import 'package:diafit/pages/login.dart';
+import 'package:diafit/pages/order.dart';
+import 'package:diafit/pages/tracker.dart';
+import 'package:diafit/pages/library.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
+  // final String? route;
+
   const CustomBottomNavigationBar({super.key});
 
-  // int selectedIndex = 0;
+  @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  // final int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    // cupertino
+
+    // halamanya berdasarkan posisi navbar itemnya
     List<Widget> _buildScreens() {
-      return [const Profile(), const Home()];
+      return [
+        const Profile(),
+        const Order(),
+        const Home(),
+        const Tracker(),
+        const Library(),
+      ];
     }
+
+    final PersistentTabController controller =
+        PersistentTabController(initialIndex: 2);
 
     List<PersistentBottomNavBarItem> _navBarsItems() {
       return [
@@ -23,39 +45,34 @@ class CustomBottomNavigationBar extends StatelessWidget {
             activeColorPrimary: Colors.blue,
             inactiveColorPrimary: Colors.grey,
             routeAndNavigatorSettings: RouteAndNavigatorSettings(routes: {
-              '/login': (context) => const Login(),
+              '/order': (context) => const Order(),
             })),
-        // PersistentBottomNavBarItem(
-        //   icon: const Icon(Icons.receipt),
-        //   title: ("Order"),
-        //   // activeColorPrimary: CupertinoColors.activeBlue,
-        //   // inactiveColorPrimary: CupertinoColors.systemGrey,
-        // ),
         PersistentBottomNavBarItem(
-            icon: const Icon(Icons.home),
-            title: ("Home"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.grey,
-            routeAndNavigatorSettings: RouteAndNavigatorSettings(routes: {
-              '/login': (context) => const Login(),
-            })),
-        // PersistentBottomNavBarItem(
-        //   icon: const Icon(Icons.health_and_safety),
-        //   title: ("Tracker"),
-        //   // activeColorPrimary: CupertinoColors.activeBlue,
-        //   // inactiveColorPrimary: CupertinoColors.systemGrey,
-        // ),
-        // PersistentBottomNavBarItem(
-        //   icon: const Icon(Icons.book),
-        //   title: ("Library"),
-        //   // activeColorPrimary: CupertinoColors.activeBlue,
-        //   // inactiveColorPrimary: CupertinoColors.systemGrey,
-        // ),
+          icon: const Icon(Icons.receipt),
+          title: ("Order"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.home),
+          title: ("Home"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.health_and_safety),
+          title: ("Tracker"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.book),
+          title: ("Library"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.grey,
+        ),
       ];
     }
-
-    final PersistentTabController controller =
-        PersistentTabController(initialIndex: 0);
 
     return PersistentTabView(
       context,
@@ -67,7 +84,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset:
           true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
+      stateManagement: false, // Default is true.
       hideNavigationBarWhenKeyboardShows:
           true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
       decoration: NavBarDecoration(
@@ -88,44 +105,78 @@ class CustomBottomNavigationBar extends StatelessWidget {
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle:
-          NavBarStyle.style1, // Choose the nav bar style with this property.
+          NavBarStyle.style2, // Choose the nav bar style with this property.
     );
-    // BottomNavigationBar(
-    //   type: BottomNavigationBarType.fixed,
-    //   items: const [
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.person,
-    //       ),
-    //       label: 'Profile',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.receipt,
-    //       ),
-    //       label: 'Order',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.home,
-    //       ),
-    //       label: 'Home',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.health_and_safety,
-    //       ),
-    //       label: 'Tracker',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.book,
-    //       ),
-    //       label: 'Library',
-    //     ),
-    //   ],
-    //   currentIndex: selectedIndex,
-    //   onTap: _onItemTapped,
-    // );
   }
+
+  // navbar item mana  yang harus dihighlight kalo lagi di halaman mana
+  // login sama home itu home karena autologin
+
+  //   if (widget.route == '/profile') {
+  //     _selectedIndex = 0;
+  //   } else if (widget.route == '/order') {
+  //     _selectedIndex = 1;
+  //   } else if (widget.route == '/login' || widget.route == '/home') {
+  //     _selectedIndex = 2;
+  //   } else if (widget.route == '/tracker') {
+  //     _selectedIndex = 3;
+  //   } else if (widget.route == '/library') {
+  //     _selectedIndex = 4;
+  //   }
+
+  //   return BottomNavigationBar(
+  //     type: BottomNavigationBarType.fixed,
+  //     items: const [
+  //       BottomNavigationBarItem(
+  //         icon: Icon(
+  //           Icons.person,
+  //         ),
+  //         label: 'Profile',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(
+  //           Icons.receipt,
+  //         ),
+  //         label: 'Order',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(
+  //           Icons.home,
+  //         ),
+  //         label: 'Home',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(
+  //           Icons.health_and_safety,
+  //         ),
+  //         label: 'Tracker',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(
+  //           Icons.book,
+  //         ),
+  //         label: 'Library',
+  //       ),
+  //     ],
+  //     currentIndex: _selectedIndex,
+  //     onTap: _onItemTapped,
+  //   );
+  // }
+
+  // void _onItemTapped(int index) {
+  //   if (index == 0) {
+  //     Navigator.pushReplacementNamed(context, '/profile');
+  //   } else if (index == 1) {
+  //     Navigator.pushReplacementNamed(context, '/order');
+  //   } else if (index == 2) {
+  //     Navigator.pushReplacementNamed(context, '/home');
+  //   } else if (index == 3) {
+  //     Navigator.pushReplacementNamed(context, '/tracker');
+  //   } else if (index == 4) {
+  //     Navigator.pushReplacementNamed(context, '/library');
+  //   }
+  //   // setState(() {
+  //   //   _selectedIndex = index;
+  //   // });
+  // }
 }

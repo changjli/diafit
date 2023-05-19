@@ -22,7 +22,17 @@ class _HomeState extends State<Home> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     auth['login'] = prefs.getBool('login');
     auth['api_token'] = prefs.getString('api_token');
+    print(prefs.getBool('login'));
   }
+
+  // String? currentRoute() {
+  //   var route = ModalRoute.of(context);
+
+  //   if (route != null) {
+  //     return route.settings.name;
+  //   }
+  //   return null;
+  // }
 
   @override
   void initState() {
@@ -32,12 +42,18 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('hello world')),
+    // String? route = currentRoute();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
+      // bottomNavigationBar: CustomBottomNavigationBar(route: route),
     );
     // return CustomBottomNavigationBar();
     // return const Scaffold(
     //   bottomNavigationBar: CustomBottomNavigationBar(),
+
     // BottomNavigationBar(
     //   type: BottomNavigationBarType.fixed,
     //   items: const [
