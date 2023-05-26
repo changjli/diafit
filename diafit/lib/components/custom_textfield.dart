@@ -26,22 +26,27 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       child: TextFormField(
         controller: widget.controller,
         style: const TextStyle(
-          color: Colors.white,
+          color: Color(0xFF3641B7),
         ),
         obscureText: widget.content == "password" ? true : false,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.secondary,
           label: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 widget.icon,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
               const SizedBox(
                 width: 10.0,
               ),
               Text(
                 widget.content,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
               ),
             ],
           ),
@@ -56,23 +61,25 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           //   ]),
           // ),
           labelStyle: const TextStyle(
-            fontSize: 18.0,
-            color: Colors.white,
+            fontSize: 16.0,
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.onSecondary),
           ),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(color: Colors.white)),
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.onSecondary),
+          ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
           ),
         ),
         validator: widget.validator,

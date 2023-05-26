@@ -14,4 +14,18 @@ class Validator {
     }
     return null;
   }
+
+  static String? foodValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this field is required';
+    }
+    return null;
+  }
+
+  static String? servingValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this field is required';
+    }
+    return null;
+  }
 }

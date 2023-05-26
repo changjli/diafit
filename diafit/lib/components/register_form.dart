@@ -92,6 +92,9 @@ class RegisterFormState extends State<RegisterForm> {
       child: Center(
         child: Column(
           children: <Widget>[
+            const SizedBox(
+              height: 30,
+            ),
             CustomTextfield(
                 content: 'email',
                 icon: Icons.email,
@@ -106,11 +109,15 @@ class RegisterFormState extends State<RegisterForm> {
                 controller: passwordcontroller,
                 validator: Validator.passwordValidator),
             const SizedBox(
-              height: 20.0,
+              height: 30.0,
             ),
-            CustomButton(
-              content: 'register',
-              function: validateInput,
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: CustomButton(
+                content: 'register',
+                function: validateInput,
+              ),
             ),
           ],
         ),

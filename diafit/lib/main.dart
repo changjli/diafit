@@ -13,7 +13,22 @@ Future<void> main() async {
   runApp(
     MaterialApp(
       initialRoute: '/login',
-      // theme: const {},
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        colorScheme: const ColorScheme(
+          brightness: Brightness.light,
+          primary: Color(0xFF3641B7),
+          onPrimary: Colors.white,
+          secondary: Color(0xFFD9DBFF),
+          onSecondary: Color(0xFF3641B7),
+          error: Color(0xFF931A1A),
+          onError: Colors.white,
+          background: Colors.white,
+          onBackground: Color(0xFF3641B7),
+          surface: Colors.white,
+          onSurface: Color(0xFF3641B7),
+        ),
+      ),
       routes: {
         '/login': (context) {
           // auto login

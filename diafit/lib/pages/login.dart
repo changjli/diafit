@@ -19,51 +19,65 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF3641B7),
-      body: SafeArea(
-        child: Column(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        resizeToAvoidBottomInset: false,
+        body: Stack(
           children: [
-            const SizedBox(
-              height: 50.0,
+            Column(
+              children: [
+                const SizedBox(
+                  height: 50.0,
+                ),
+                Text(
+                  'Welcome Back',
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  'Log in to your account',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                const LoginForm(),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: "Don't have an account?",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).colorScheme.primary,
+                          )),
+                      TextSpan(
+                        text: ' Sign Up',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF757DF0),
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, '/register');
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            const Text(
-              'Welcome Back',
-              style: TextStyle(
-                fontSize: 40.0,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const Text(
-              'Log in to your account',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-              ),
-            ),
-            const LoginForm(),
-            RichText(
-              text: TextSpan(children: [
-                const TextSpan(
-                    text: "Don't have an account?",
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.white,
-                    )),
-                TextSpan(
-                    text: ' Sign Up',
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                      color: Color(0xFF757DF0),
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushNamed(context, '/register');
-                      })
-              ]),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset('images/Vector.png'),
             )
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/components/custom_textfield.dart';
 import 'package:diafit/controller/validator.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,6 +68,7 @@ class LoginFormState extends State<LoginForm> {
         // create session
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setBool('login', true);
+        await prefs.setString('id', data['id']);
         await prefs.setString('api_token', output['token']);
 
         Navigator.pushReplacementNamed(context, '/home');
@@ -98,13 +100,16 @@ class LoginFormState extends State<LoginForm> {
       child: Center(
         child: Column(
           children: <Widget>[
+            const SizedBox(
+              height: 30,
+            ),
             CustomTextfield(
                 content: 'email',
                 icon: Icons.email,
                 controller: emailController,
                 validator: Validator.emailValidator),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             CustomTextfield(
               content: 'password',
@@ -113,12 +118,36 @@ class LoginFormState extends State<LoginForm> {
               validator: Validator.passwordValidator,
             ),
             const SizedBox(
-              height: 20.0,
+              height: 10,
             ),
-            CustomButton(
-              content: 'login',
-              function: validateInput,
+            RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                    text: 'Forgot Password?',
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: Color(0xFF757DF0),
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.pushNamed(context, '/register');
+                      })
+              ]),
             ),
+            const SizedBox(
+              height: 30.0,
+            ),
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: CustomButton(
+                content: 'Login',
+                function: validateInput,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),

@@ -1,8 +1,8 @@
+import 'package:diafit/pages/bio_data.dart';
 import 'package:flutter/material.dart';
 import 'package:diafit/controller/custom_function.dart';
 import 'package:diafit/pages/login.dart';
-// import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-// import 'package:diafit/pages/order.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -12,14 +12,20 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  // String? currentRoute() {
-  //   var route = ModalRoute.of(context);
+  String id = "";
+  String apiToken = "";
 
-  //   if (route != null) {
-  //     return route.settings.name;
-  //   }
-  //   return null;
-  // }
+  void getAuth() async {
+    Map temp = await CustomFunction.getAuth();
+    id = temp['id'];
+    apiToken = temp['apiToken'];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAuth();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +37,30 @@ class _ProfileState extends State<Profile> {
       body: Column(
         children: [
           ElevatedButton(
+            onPressed: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const BioData(),
+              );
+            },
+            child: const Text('Bio Data'),
+          ),
+          ElevatedButton(
             onPressed: () => CustomFunction.logout(
-                // cupertino
-                // PersistentNavBarNavigator.pushNewScreen(
-                //   context,
-                //   screen: const Login(),
-                //   withNavBar: true, // OPTIONAL VALUE. True by default.
-                //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                // ),
+              // cupertino
+              // PersistentNavBarNavigator.pushNewScreen(
+              //   context,
+              //   screen: const Login(),
+              //   withNavBar: true, // OPTIONAL VALUE. True by default.
+              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              // ),
 
-                // owh ini jadi refer ke root
-                // keluar dari CustomNavigationBar
-                Navigator.of(context, rootNavigator: true).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const Login()))),
+              // owh ini jadi refer ke root
+              // keluar dari CustomNavigationBar
+              Navigator.of(context, rootNavigator: true).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const Login())),
+              id,
+            ),
 
             // logout before refactor
             // () async {
