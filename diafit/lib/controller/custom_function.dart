@@ -32,4 +32,24 @@ class CustomFunction {
       'apiToken': prefs.getString('api_token')!.split('|')[1],
     };
   }
+
+  static Future<bool> deleteNutrition(String id) async {
+    Map auth = await getAuth();
+    try {
+      http.Response response = await http
+          .post(Uri.parse("http://10.0.2.2:8000/api/nutrition/$id"), headers: {
+        "Authorization": "Bearer ${auth['apiToken']}",
+      }, body: {
+        "_method": "delete",
+      });
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

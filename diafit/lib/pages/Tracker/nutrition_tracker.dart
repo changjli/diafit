@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:diafit/components/custom_card.dart';
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/model/nutrition.dart';
 import 'package:diafit/pages/Tracker/create_nutrition.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,13 +17,16 @@ class NutritionTracker extends StatefulWidget {
 // refactor
 class _NutritionTrackerState extends State<NutritionTracker> {
   String apiToken = "";
+  bool isLoading = true;
+  List<Nutrition> records = [];
 
-  void getToken() async {
+  Future<void> getToken() async {
     Map temp = await CustomFunction.getAuth();
     apiToken = temp['apiToken'];
   }
 
-  void getReport(DateTime date) async {
+  Future<void> getReport(DateTime date) async {
+    await getToken();
     try {
       http.Response response = await http.get(
           Uri.parse("http://10.0.2.2:8000/api/nutrition/report?date=$date"),
@@ -30,7 +35,20 @@ class _NutritionTrackerState extends State<NutritionTracker> {
       Map output = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        print(output);
+        if (output['success'] == true) {
+          List data = output['data'];
+          print(data);
+          setState(() {
+            isLoading = false;
+            records = data.map((d) => Nutrition.fromJson(d)).toList();
+          });
+        } else {
+          print(output['success']);
+          setState(() {
+            isLoading = false;
+            records = [];
+          });
+        }
       }
     } catch (e) {
       print(e);
@@ -40,34 +58,64 @@ class _NutritionTrackerState extends State<NutritionTracker> {
   @override
   void initState() {
     super.initState();
-    getToken();
     // error
     getReport(DateTime.now());
   }
 
   @override
   Widget build(BuildContext context) {
+    // kalo masih request loading
+    // kalo udah tunjukkin datanya
+    // kalo listnya kosong show error
+    // kalo listnya ada isi tunjukkin data
+    Widget nutritionRecordsList = isLoading == true
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : records.isEmpty
+            ? const Text('There is no data')
+            : ListView.builder(
+                itemCount: records.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    record: records[index],
+                  );
+                },
+              );
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Nutrition Tracker'),
         ),
-        body: Column(children: [
-          CalendarDatePicker(
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2020),
-            lastDate: DateTime(2030),
-            onDateChanged: (DateTime value) {
-              // print(apiToken);
-              getReport(value);
-            },
-          ),
-          IconButton(
-              onPressed: () {
-                PersistentNavBarNavigator.pushNewScreen(context,
-                    screen: const CreateNutrition());
+        body: Column(
+          children: [
+            CalendarDatePicker(
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2020),
+              lastDate: DateTime(2030),
+              onDateChanged: (DateTime value) async {
+                setState(() {
+                  isLoading = true;
+                });
+                await getReport(value);
               },
-              icon: const Icon(Icons.add))
-        ])
+            ),
+            IconButton(
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: const CreateNutrition())
+                      .then((value) {
+                    getReport(DateTime.now());
+                  });
+                },
+                icon: const Icon(Icons.add)),
+            Expanded(
+              child: SizedBox(
+                child: nutritionRecordsList,
+              ),
+            )
+          ],
+        )
         // ElevatedButton(
         //   onPressed: getData,
         //   child: const Text('Proccess'),

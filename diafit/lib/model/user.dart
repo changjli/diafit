@@ -1,13 +1,11 @@
-import 'dart:ffi';
-
 class User {
   final String? id;
   final String? name;
   final String? email;
   final String? gender;
   final int? age;
-  final Float? height;
-  final Float? weight;
+  final double? height;
+  final double? weight;
   final String? address;
 
   User({
@@ -28,8 +26,8 @@ class User {
         email = json['email'],
         gender = json['gender'],
         age = json['age'],
-        weight = json['weight'],
-        height = json['height'],
+        weight = double.parse(json['weight']),
+        height = double.parse(json['height']),
         address = json['address'];
 
   // convert dart object to json object

@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatefulWidget {
   final String content;
-  final IconData icon;
+  final IconData? icon;
   final TextEditingController controller;
   String? Function(String?) validator;
 
-  CustomTextfield(
-      {super.key,
-      required this.content,
-      required this.icon,
-      required this.controller,
-      required this.validator});
+  CustomTextfield({
+    super.key,
+    required this.content,
+    this.icon,
+    required this.controller,
+    required this.validator,
+  });
 
   @override
   State<CustomTextfield> createState() => _CustomTextfieldState();
@@ -35,10 +36,12 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           label: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                widget.icon,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
+              if (widget.icon != null) ...[
+                Icon(
+                  widget.icon,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ],
               const SizedBox(
                 width: 10.0,
               ),

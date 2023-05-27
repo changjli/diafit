@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:diafit/pages/home.dart';
-import 'package:diafit/pages/profile.dart';
+import 'package:diafit/pages/Profile/profile.dart';
 import 'package:diafit/pages/order.dart';
 import 'package:diafit/pages/tracker.dart';
 import 'package:diafit/pages/library.dart';
@@ -42,7 +42,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         PersistentBottomNavBarItem(
             icon: const Icon(Icons.person),
             title: ("Profile"),
-            activeColorPrimary: Colors.blue,
+            activeColorPrimary: Theme.of(context).colorScheme.primary,
             inactiveColorPrimary: Colors.grey,
             routeAndNavigatorSettings: RouteAndNavigatorSettings(routes: {
               '/order': (context) => const Order(),
@@ -50,25 +50,25 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.receipt),
           title: ("Order"),
-          activeColorPrimary: Colors.blue,
+          activeColorPrimary: Theme.of(context).colorScheme.primary,
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
           title: ("Home"),
-          activeColorPrimary: Colors.blue,
+          activeColorPrimary: Theme.of(context).colorScheme.primary,
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.health_and_safety),
           title: ("Tracker"),
-          activeColorPrimary: Colors.blue,
+          activeColorPrimary: Theme.of(context).colorScheme.primary,
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.book),
           title: ("Library"),
-          activeColorPrimary: Colors.blue,
+          activeColorPrimary: Theme.of(context).colorScheme.primary,
           inactiveColorPrimary: Colors.grey,
         ),
       ];
