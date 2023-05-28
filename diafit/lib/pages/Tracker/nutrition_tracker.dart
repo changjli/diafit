@@ -75,6 +75,8 @@ class _NutritionTrackerState extends State<NutritionTracker> {
         : records.isEmpty
             ? const Text('There is no data')
             : ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: records.length,
                 itemBuilder: (context, index) {
                   return CustomCard(
@@ -87,34 +89,38 @@ class _NutritionTrackerState extends State<NutritionTracker> {
         appBar: AppBar(
           title: const Text('Nutrition Tracker'),
         ),
-        body: Column(
-          children: [
-            CalendarDatePicker(
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (DateTime value) async {
-                setState(() {
-                  isLoading = true;
-                });
-                await getReport(value);
-              },
-            ),
-            IconButton(
-                onPressed: () {
-                  PersistentNavBarNavigator.pushNewScreen(context,
-                          screen: const CreateNutrition())
-                      .then((value) {
-                    getReport(DateTime.now());
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              // calendar
+              CalendarDatePicker(
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2020),
+                lastDate: DateTime(2030),
+                onDateChanged: (DateTime value) async {
+                  setState(() {
+                    isLoading = true;
                   });
+                  await getReport(value);
                 },
-                icon: const Icon(Icons.add)),
-            Expanded(
-              child: SizedBox(
-                child: nutritionRecordsList,
               ),
-            )
-          ],
+              // records
+              nutritionRecordsList,
+              // add
+              IconButton(
+                  onPressed: () {
+                    PersistentNavBarNavigator.pushNewScreen(context,
+                            screen: const CreateNutrition())
+                        .then((value) {
+                      getReport(DateTime.now());
+                    });
+                  },
+                  icon: const Icon(Icons.add)),
+              const SizedBox(
+                height: 10,
+              )
+            ],
+          ),
         )
         // ElevatedButton(
         //   onPressed: getData,
