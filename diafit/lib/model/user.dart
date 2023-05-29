@@ -1,7 +1,7 @@
 class User {
   final String? id;
   final String? name;
-  final String? email;
+  final String email;
   final String? gender;
   final int? age;
   final double? height;
@@ -11,7 +11,7 @@ class User {
   User({
     this.id,
     this.name,
-    this.email,
+    required this.email,
     this.gender,
     this.age,
     this.height,

@@ -10,6 +10,7 @@ class CustomFunction {
     pref.remove("login");
     pref.remove('id');
     pref.remove("api_token");
+    print(pref.getBool("login"));
 
     // logout dari web service
     try {

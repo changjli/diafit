@@ -37,7 +37,7 @@ class _NutritionTrackerState extends State<NutritionTracker> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
-          print(data);
+          // print(data);
           setState(() {
             isLoading = false;
             records = data.map((d) => Nutrition.fromJson(d)).toList();
@@ -59,7 +59,8 @@ class _NutritionTrackerState extends State<NutritionTracker> {
   void initState() {
     super.initState();
     // error
-    getReport(DateTime.now());
+    getReport(DateUtils.dateOnly(DateTime.now()));
+    // harus date doang
   }
 
   @override
@@ -112,7 +113,7 @@ class _NutritionTrackerState extends State<NutritionTracker> {
                     PersistentNavBarNavigator.pushNewScreen(context,
                             screen: const CreateNutrition())
                         .then((value) {
-                      getReport(DateTime.now());
+                      getReport(DateUtils.dateOnly(DateTime.now()));
                     });
                   },
                   icon: const Icon(Icons.add)),

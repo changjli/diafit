@@ -64,7 +64,7 @@ class BioDataFormState extends State<BioDataForm> {
         user = User.fromJson(data);
 
         // initial value
-        emailController.text = user!.email! ?? '';
+        emailController.text = user!.email ?? '';
         nameController.text = user!.name! ?? '';
         genderController.text = user!.gender! ?? '';
         ageController.text = user!.age!.toString() ?? '';
@@ -151,7 +151,7 @@ class BioDataFormState extends State<BioDataForm> {
                       height: 10,
                     ),
                     Text(
-                      user!.email!,
+                      emailController.text,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 16,

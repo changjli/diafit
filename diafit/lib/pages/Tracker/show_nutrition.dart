@@ -13,6 +13,7 @@ class ShowNutrition extends StatefulWidget {
 
 class _ShowNutritionState extends State<ShowNutrition> {
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -23,17 +24,20 @@ class _ShowNutritionState extends State<ShowNutrition> {
             children: [
               const SizedBox(height: 30),
               Image.network(
-                  "https://source.unsplash.com/350x250?chicken%20food"),
+                  "https://source.unsplash.com/350x250?${widget.record.name}"),
               SfCircularChart(series: <CircularSeries<Nutrition, String>>[
                 RadialBarSeries<Nutrition, String>(
-                    maximumValue: 6000,
+                    maximumValue: 300,
                     radius: '100%',
                     gap: '3%',
                     dataSource: [widget.record],
                     cornerStyle: CornerStyle.bothCurve,
                     xValueMapper: (Nutrition data, _) => data.name,
                     yValueMapper: (Nutrition data, _) => data.calories,
-                    pointColorMapper: (Nutrition data, _) => Colors.red)
+                    pointColorMapper: (Nutrition data, _) => Colors.red,
+                    dataLabelSettings: const DataLabelSettings(
+                      isVisible: true,
+                    )),
               ]),
               ElevatedButton(
                 onPressed: () async {
