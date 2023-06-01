@@ -21,8 +21,8 @@ class _NutritionTrackerState extends State<NutritionTracker> {
   List<Nutrition> records = [];
 
   Future<void> getToken() async {
-    Map temp = await CustomFunction.getAuth();
-    apiToken = temp['apiToken'];
+    Map auth = await CustomFunction.getAuth();
+    apiToken = auth['apiToken'];
   }
 
   Future<void> getReport(DateTime date) async {
@@ -43,7 +43,6 @@ class _NutritionTrackerState extends State<NutritionTracker> {
             records = data.map((d) => Nutrition.fromJson(d)).toList();
           });
         } else {
-          print(output['success']);
           setState(() {
             isLoading = false;
             records = [];
