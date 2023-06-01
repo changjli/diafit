@@ -1,33 +1,35 @@
 import 'package:diafit/controller/custom_function.dart';
-import 'package:diafit/pages/Order/create_menu.dart';
-import 'package:diafit/pages/Order/show_menu.dart';
+import 'package:diafit/pages/Order/show_food.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:intl/intl.dart';
+
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class Menu extends StatefulWidget {
-  const Menu({super.key});
+class ShowMenu extends StatefulWidget {
+  final String date;
+
+  const ShowMenu({super.key, required this.date});
 
   @override
-  State<Menu> createState() => _MenuState();
+  State<ShowMenu> createState() => _ShowMenuState();
 }
 
-class _MenuState extends State<Menu> {
+class _ShowMenuState extends State<ShowMenu> {
   String apiToken = "";
-  List menus = [];
+  List foods = [];
 
   Future<void> getAuth() async {
     Map temp = await CustomFunction.getAuth();
     apiToken = temp['apiToken'];
   }
 
-  Future<void> getMenu() async {
+  Future<void> getFoods() async {
     await getAuth();
     try {
+      String date = widget.date;
       http.Response response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/api/food"),
+          Uri.parse("http://10.0.2.2:8000/api/food/menu?date=$date"),
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);
@@ -35,7 +37,7 @@ class _MenuState extends State<Menu> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
-          menus = data;
+          foods = data;
         } else {
           print('there is no data');
         }
@@ -53,19 +55,8 @@ class _MenuState extends State<Menu> {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () async {
-              PersistentNavBarNavigator.pushNewScreen(context,
-                      screen: const CreateMenu())
-                  .then((value) async {
-                await getMenu();
-                setState(() {});
-              });
-            },
-            child: const Text('add'),
-          ),
           FutureBuilder(
-            future: getMenu(),
+            future: getFoods(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -80,9 +71,9 @@ class _MenuState extends State<Menu> {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: menus.length,
+                    itemCount: foods.length,
                     itemBuilder: (context, index) {
-                      return MenuCard(menu: menus[index]);
+                      return FoodCard(food: foods[index]);
                     },
                   );
                 }
@@ -95,9 +86,9 @@ class _MenuState extends State<Menu> {
   }
 }
 
-class MenuCard extends StatelessWidget {
-  final Map menu;
-  const MenuCard({super.key, required this.menu});
+class FoodCard extends StatelessWidget {
+  final Map food;
+  const FoodCard({super.key, required this.food});
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +101,10 @@ class MenuCard extends StatelessWidget {
       ),
       child: InkWell(
           onTap: () {
-            PersistentNavBarNavigator.pushNewScreen(
-              context,
-              screen: ShowMenu(date: menu['date'].toString()),
-            );
+            PersistentNavBarNavigator.pushNewScreen(context,
+                screen: ShowFood(
+                  foodId: food['id'],
+                ));
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,22 +113,14 @@ class MenuCard extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(DateFormat('EEEE')
-                        .format(DateTime.parse(menu['date']))),
-                    Text(menu['date']),
+                    Text(food['name']),
+                    Text(food['price'].toString()),
                   ],
                 ),
               ),
               const SizedBox(
                 width: 10,
               ),
-              Expanded(
-                flex: 2,
-                child: Text(menu['food_count'].toString()),
-              ),
-              const SizedBox(
-                width: 10,
-              )
             ],
           )),
     );

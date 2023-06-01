@@ -1,3 +1,4 @@
+import 'package:diafit/pages/Order/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:diafit/pages/home.dart';
@@ -27,7 +28,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     List<Widget> _buildScreens() {
       return [
         const Profile(),
-        const Order(),
+        const Menu(),
         const Home(),
         const Tracker(),
         const Library(),
