@@ -33,6 +33,7 @@ class _ShowFoodState extends State<ShowFood> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           food = output['data'];
+          print(food);
         } else {
           print('there is no data');
         }
@@ -48,7 +49,24 @@ class _ShowFoodState extends State<ShowFood> {
       appBar: AppBar(
         title: const Text('haiya'),
       ),
-      body: Text(food['name']),
+      body: FutureBuilder(
+        future: getFood(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('An error occured'),
+              );
+            } else {
+              return Text(food['name']);
+            }
+          }
+        },
+      ),
     );
   }
 }
