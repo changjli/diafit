@@ -1,4 +1,6 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/Cart/cart.dart';
+import 'package:diafit/pages/Order/Transaction/history.dart';
 import 'package:diafit/pages/Order/create_menu.dart';
 import 'package:diafit/pages/Order/show_menu.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +91,20 @@ class _MenuState extends State<Menu> {
               }
             },
           ),
+          ElevatedButton(
+            onPressed: () async {
+              PersistentNavBarNavigator.pushNewScreen(context,
+                  screen: const Cart());
+            },
+            child: const Text('cart'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              PersistentNavBarNavigator.pushNewScreen(context,
+                  screen: const History());
+            },
+            child: const Text('history'),
+          ),
         ],
       ),
     );
@@ -115,30 +131,87 @@ class MenuCard extends StatelessWidget {
               screen: ShowMenu(date: menu['date'].toString()),
             );
           },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Text(DateFormat('EEEE')
-                        .format(DateTime.parse(menu['date']))),
-                    Text(menu['date']),
-                  ],
-                ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          DateFormat('EEEE')
+                              .format(DateTime.parse(menu['date']))
+                              .substring(0, 3),
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          DateFormat('dd MMMM yyyy')
+                              .format(DateTime.parse(menu['date'])),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  VerticalDivider(
+                    width: 20,
+                    thickness: 1,
+                    indent: 20,
+                    endIndent: 0,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(children: [
+                        Text(
+                          '${menu['food_count']} Times',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.restaurant,
+                        )
+                      ]),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    width: 35,
+                    height: 60,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(menu['food_count'].toString()),
-              ),
-              const SizedBox(
-                width: 10,
-              )
-            ],
+            ),
           )),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/Cart/create_cart_form.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -47,7 +48,7 @@ class _ShowFoodState extends State<ShowFood> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('haiya'),
+        title: const Text('food'),
       ),
       body: FutureBuilder(
         future: getFood(),
@@ -62,7 +63,12 @@ class _ShowFoodState extends State<ShowFood> {
                 child: Text('An error occured'),
               );
             } else {
-              return Text(food['name']);
+              return Column(
+                children: [
+                  Text(food['name']),
+                  CreateCartForm(food: food),
+                ],
+              );
             }
           }
         },
