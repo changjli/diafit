@@ -45,80 +45,108 @@ class _CartState extends State<Cart> {
     }
   }
 
-  Future<void> storeTransaction() async {
+  // old transaction
+  // Future<void> storeTransaction() async {
+  //   await getAuth();
+  //   try {
+  //     http.Response response = await http.post(
+  //       Uri.parse("http://10.0.2.2:8000/api/transaction"),
+  //       headers: {
+  //         "Authorization": "Bearer $apiToken",
+  //         'Content-Type': 'application/json; charset=UTF-8'
+  //       },
+  //       body: jsonEncode({}),
+  //     );
+
+  //     Map output = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200) {
+  //       Map data = output['data'];
+  //       print(data);
+  //       updateCart(data['id']);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  // void updateCart(String $id) async {
+  //   await getAuth();
+  //   try {
+  //     http.Response response = await http.post(
+  //       Uri.parse("http://10.0.2.2:8000/api/cart"),
+  //       headers: {
+  //         "Authorization": "Bearer $apiToken",
+  //         'Content-Type': 'application/json; charset=UTF-8'
+  //       },
+  //       body: jsonEncode({
+  //         "_method": 'put',
+  //         "transaction_id": $id,
+  //       }),
+  //     );
+
+  //     Map output = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200) {
+  //       List data = output['data'];
+  //       print(data);
+  //       updateTransaction($id);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  // void updateTransaction(String $id) async {
+  //   await getAuth();
+  //   try {
+  //     String temp = $id;
+  //     http.Response response = await http.post(
+  //       Uri.parse("http://10.0.2.2:8000/api/transaction/$temp"),
+  //       headers: {
+  //         "Authorization": "Bearer $apiToken",
+  //         'Content-Type': 'application/json; charset=UTF-8'
+  //       },
+  //       body: jsonEncode({
+  //         "_method": 'put',
+  //       }),
+  //     );
+
+  //     Map output = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200) {
+  //       Map data = output['data'];
+  //       PersistentNavBarNavigator.pushNewScreen(context,
+  //           screen: Payment(
+  //             transaction: data,
+  //           ));
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  // new transaction
+  Future<void> processTransaction() async {
     await getAuth();
     try {
-      http.Response response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/transaction"),
-        headers: {
-          "Authorization": "Bearer $apiToken",
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: jsonEncode({}),
-      );
+      http.Response response = await http.get(
+          Uri.parse("http://10.0.2.2:8000/api/transaction/process"),
+          headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        Map data = output['data'];
-        print(data);
-        updateCart(data['id']);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void updateCart(String $id) async {
-    await getAuth();
-    try {
-      http.Response response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/cart"),
-        headers: {
-          "Authorization": "Bearer $apiToken",
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: jsonEncode({
-          "_method": 'put',
-          "transaction_id": $id,
-        }),
-      );
-
-      Map output = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        List data = output['data'];
-        print(data);
-        updateTransaction($id);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void updateTransaction(String $id) async {
-    await getAuth();
-    try {
-      String temp = $id;
-      http.Response response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/transaction/$temp"),
-        headers: {
-          "Authorization": "Bearer $apiToken",
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: jsonEncode({
-          "_method": 'put',
-        }),
-      );
-
-      Map output = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        Map data = output['data'];
-        PersistentNavBarNavigator.pushNewScreen(context,
-            screen: Payment(
-              transaction: data,
-            ));
+        if (output['success'] == true) {
+          Map data = output['data'];
+          print(data);
+          PersistentNavBarNavigator.pushNewScreen(context,
+              screen: Payment(
+                transaction: data,
+              ));
+        } else {
+          print('error');
+        }
       }
     } catch (e) {
       print(e);
@@ -157,7 +185,8 @@ class _CartState extends State<Cart> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        await storeTransaction();
+                        // await storeTransaction();
+                        await processTransaction();
                       },
                       child: const Text('check out'),
                     ),
