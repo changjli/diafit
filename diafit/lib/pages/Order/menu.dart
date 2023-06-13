@@ -84,7 +84,10 @@ class _MenuState extends State<Menu> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: menus.length,
                     itemBuilder: (context, index) {
-                      return MenuCard(menu: menus[index]);
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: CustomCard(menu: menus[index]),
+                      );
                     },
                   );
                 }
@@ -111,9 +114,9 @@ class _MenuState extends State<Menu> {
   }
 }
 
-class MenuCard extends StatelessWidget {
+class CustomCard extends StatelessWidget {
   final Map menu;
-  const MenuCard({super.key, required this.menu});
+  const CustomCard({super.key, required this.menu});
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +135,10 @@ class MenuCard extends StatelessWidget {
             );
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            constraints: const BoxConstraints(
+              minHeight: 100,
+            ),
             child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,47 +170,50 @@ class MenuCard extends StatelessWidget {
                     ),
                   ),
                   VerticalDivider(
-                    width: 20,
+                    width: 40,
                     thickness: 1,
-                    indent: 20,
+                    indent: 0,
                     endIndent: 0,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Row(children: [
-                        Text(
-                          '${menu['food_count']} Times',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Row(children: [
+                          Text(
+                            '${menu['food_count']} Times',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const Icon(
-                          Icons.restaurant,
-                        )
-                      ]),
+                          const Icon(
+                            Icons.restaurant,
+                          )
+                        ]),
+                      ),
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 20,
                   ),
-                  SizedBox(
-                    width: 35,
-                    height: 60,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: const Icon(
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Icon(
                         Icons.arrow_forward_ios,
                       ),
                     ),

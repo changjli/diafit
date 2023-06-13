@@ -1,5 +1,4 @@
 import 'package:diafit/controller/custom_function.dart';
-import 'package:diafit/pages/Order/show_food.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -101,27 +100,46 @@ class FoodCard extends StatelessWidget {
       ),
       child: InkWell(
           onTap: () {
-            PersistentNavBarNavigator.pushNewScreen(context,
-                screen: ShowFood(
-                  foodId: food['id'],
-                ));
+            PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: ShowMenu(date: food['date'].toString()),
+            );
           },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Text(food['name']),
-                    Text(food['price'].toString()),
-                  ],
-                ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            constraints: const BoxConstraints(
+              minHeight: 100,
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${food['name']}",
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Rp. ${food['price']}",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              const SizedBox(
-                width: 10,
-              ),
-            ],
+            ),
           )),
     );
   }
