@@ -185,20 +185,22 @@ class CustomCard extends StatelessWidget {
                         color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Row(children: [
-                          Text(
-                            '${menu['food_count']} Times',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                      child: Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Row(children: [
+                            Text(
+                              '${menu['food_count']} Times',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const Icon(
-                            Icons.restaurant,
-                          )
-                        ]),
+                            const Icon(
+                              Icons.restaurant,
+                            )
+                          ]),
+                        ),
                       ),
                     ),
                   ),
