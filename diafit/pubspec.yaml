@@ -41,7 +41,7 @@ dependencies:
   flutter_profile_picture: ^2.0.0
   syncfusion_flutter_charts: ^21.2.6
   input_quantity: ^1.2.1
-  image_picker: ^0.8.8
+  image_picker: ^0.8.9
 
 dev_dependencies:
   flutter_test:
