@@ -10,6 +10,8 @@ import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 // Define a custom Form widget.
 class BioDataForm extends StatefulWidget {
@@ -124,10 +126,24 @@ class BioDataFormState extends State<BioDataForm> {
 
   Future pickImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
+      // input
+      final XFile? file =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (file == null) return;
+
+      // final imageTemp = File(image.path);
+
+      // directory
+      final Directory duplicateFileDirectory =
+          await getApplicationDocumentsDirectory();
+      final String duplicateFilePath = duplicateFileDirectory.path;
+      final String fileName = basename(file.path);
+
+      // save
+      await file.saveTo('$duplicateFilePath/$fileName');
+      final File localImage = File('$duplicateFilePath/$fileName');
+
+      setState(() => image = localImage);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
