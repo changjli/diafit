@@ -40,7 +40,7 @@ class _RegisterState extends State<Register> {
             const RegisterForm(),
           ],
         ),
-        bottomSheet: Image.asset('images/Vector.png'),
+        // bottomSheet: Image.asset('assets/images/Book.png'),
       ),
     );
   }

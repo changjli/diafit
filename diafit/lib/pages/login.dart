@@ -75,10 +75,10 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Image.asset('images/Vector.png'),
-            )
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Image.asset('assets/images/Vector.png'),
+            // )
           ],
         ),
       ),

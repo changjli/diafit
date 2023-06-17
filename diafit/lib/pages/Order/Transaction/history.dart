@@ -32,6 +32,7 @@ class _HistoryState extends State<History> {
         if (output['success'] == true) {
           List data = output['data'];
           transactions = data;
+          print(transactions);
         } else {
           print('there is no data');
         }
@@ -67,7 +68,8 @@ class _HistoryState extends State<History> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: transactions.length,
                     itemBuilder: (context, index) {
-                      return const Text('hello world');
+                      return Text(
+                          transactions[index]['total_price'].toString());
                     },
                   );
                 }

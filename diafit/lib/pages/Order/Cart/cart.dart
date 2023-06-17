@@ -3,8 +3,8 @@ import 'package:diafit/pages/Order/Transaction/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:input_quantity/input_quantity.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -15,6 +15,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   String apiToken = "";
+  List quantities = [];
   List carts = [];
 
   Future<void> getAuth() async {
@@ -33,9 +34,8 @@ class _CartState extends State<Cart> {
 
       if (response.statusCode == 200) {
         if (output['success'] == true) {
-          List data = output['data'];
-          carts = data;
-          print(carts);
+          quantities = output['quantity'];
+          carts = output['data'];
         } else {
           print('there is no data');
         }
@@ -143,7 +143,9 @@ class _CartState extends State<Cart> {
           PersistentNavBarNavigator.pushNewScreen(context,
               screen: Payment(
                 transaction: data,
-              ));
+              )).then((value) {
+            setState() {}
+          });
         } else {
           print('error');
         }
@@ -180,7 +182,8 @@ class _CartState extends State<Cart> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: carts.length,
                       itemBuilder: (context, index) {
-                        return const Text('hello world');
+                        return CartCard(
+                            quantity: quantities[index], cart: carts[index]);
                       },
                     ),
                     ElevatedButton(
@@ -201,51 +204,48 @@ class _CartState extends State<Cart> {
   }
 }
 
-// class MenuCard extends StatelessWidget {
-//   final Map menu;
-//   const MenuCard({super.key, required this.menu});
+class CartCard extends StatelessWidget {
+  final int quantity;
+  final Map cart;
+  const CartCard({super.key, required this.quantity, required this.cart});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       color: Colors.white,
-//       elevation: 5,
-//       clipBehavior: Clip.hardEdge,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(25),
-//       ),
-//       child: InkWell(
-//           onTap: () {
-//             PersistentNavBarNavigator.pushNewScreen(
-//               context,
-//               screen: ShowMenu(date: menu['date'].toString()),
-//             );
-//           },
-//           child: Row(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Expanded(
-//                 flex: 1,
-//                 child: Column(
-//                   children: [
-//                     Text(DateFormat('EEEE')
-//                         .format(DateTime.parse(menu['date']))),
-//                     Text(menu['date']),
-//                   ],
-//                 ),
-//               ),
-//               const SizedBox(
-//                 width: 10,
-//               ),
-//               Expanded(
-//                 flex: 2,
-//                 child: Text(menu['food_count'].toString()),
-//               ),
-//               const SizedBox(
-//                 width: 10,
-//               )
-//             ],
-//           )),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      elevation: 5,
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: InkWell(
+          onTap: () {},
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Text(cart['name']),
+                    InputQty(
+                      maxVal: 100,
+                      initVal: quantity,
+                      minVal: -100,
+                      isIntrinsicWidth: false,
+                      borderShape: BorderShapeBtn.circle,
+                      boxDecoration: const BoxDecoration(),
+                      steps: 1,
+                      onQtyChanged: (val) {},
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Text((cart['price'] * quantity).toString()),
+              )
+            ],
+          )),
+    );
+  }
+}

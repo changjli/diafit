@@ -1,11 +1,10 @@
 import 'package:diafit/components/custom_button.dart';
-import 'package:diafit/components/custom_textfield.dart';
 import 'package:diafit/controller/custom_function.dart';
-import 'package:diafit/controller/validator.dart';
 import 'package:diafit/pages/Order/Cart/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:input_quantity/input_quantity.dart';
 
 // Define a custom Form widget.
 class CreateCartForm extends StatefulWidget {
@@ -22,11 +21,10 @@ class CreateCartFormState extends State<CreateCartForm> {
   final _formKey = GlobalKey<FormState>();
   String apiToken = "";
 
-  final quantityController = TextEditingController();
+  num? quantityController;
 
   @override
   void dispose() {
-    quantityController.dispose();
     super.dispose();
   }
 
@@ -53,7 +51,7 @@ class CreateCartFormState extends State<CreateCartForm> {
         },
         body: jsonEncode({
           "food_id": widget.food['id'],
-          "food_quantity": quantityController.text,
+          "food_quantity": quantityController,
         }),
       );
 
@@ -79,20 +77,30 @@ class CreateCartFormState extends State<CreateCartForm> {
     return Form(
       key: _formKey,
       child: Center(
-        child: Column(
+        child: Row(
           children: <Widget>[
-            CustomTextfield(
-              content: 'quantity',
-              icon: Icons.numbers,
-              controller: quantityController,
-              validator: Validator.servingValidator,
+            Expanded(
+              child: InputQty(
+                maxVal: 100,
+                initVal: 0,
+                minVal: -100,
+                isIntrinsicWidth: false,
+                borderShape: BorderShapeBtn.circle,
+                boxDecoration: const BoxDecoration(),
+                steps: 1,
+                onQtyChanged: (val) {
+                  quantityController = val;
+                },
+              ),
             ),
             const SizedBox(
               height: 20.0,
             ),
-            CustomButton(
-              content: 'add',
-              function: validateInput,
+            Expanded(
+              child: CustomButton(
+                content: 'add',
+                function: validateInput,
+              ),
             ),
           ],
         ),

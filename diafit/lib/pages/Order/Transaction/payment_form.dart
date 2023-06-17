@@ -71,6 +71,31 @@ class PaymentFormState extends State<PaymentForm> {
     }
   }
 
+  Future<void> rollBack() async {
+    await getAuth();
+    try {
+      http.Response response = await http.post(
+        Uri.parse(
+            "http://10.0.2.2:8000/api/transaction/${widget.transaction['id']}"),
+        headers: {
+          "Authorization": "Bearer $apiToken",
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonEncode({
+          "_method": 'delete',
+        }),
+      );
+
+      Map output = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -101,6 +126,7 @@ class PaymentFormState extends State<PaymentForm> {
               content: 'add',
               function: validateInput,
             ),
+            CustomButton(content: 'cancel', function: rollBack),
           ],
         ),
       ),

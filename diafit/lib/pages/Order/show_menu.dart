@@ -1,4 +1,5 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/show_food.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -102,7 +103,7 @@ class FoodCard extends StatelessWidget {
           onTap: () {
             PersistentNavBarNavigator.pushNewScreen(
               context,
-              screen: ShowMenu(date: food['date'].toString()),
+              screen: ShowFood(foodId: food["id"]),
             );
           },
           child: Container(

@@ -1,4 +1,4 @@
-import 'package:diafit/pages/Tracker/exercise_tracker.dart';
+import 'package:diafit/pages/Tracker/Exercise/exercise_tracker.dart';
 import 'package:diafit/pages/Tracker/glucose_tracker.dart';
 import 'package:diafit/pages/Tracker/nutrition_tracker.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +18,11 @@ class _TrackerState extends State<Tracker> {
       appBar: AppBar(
         title: const Text('Tracker'),
       ),
-      body: Row(
+      body: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
-            children: const [
+            children: [
               TrackerCard(
                 content: 'Glucose Tracker',
                 page: GlucoseTracker(),

@@ -65,7 +65,61 @@ class _ShowFoodState extends State<ShowFood> {
             } else {
               return Column(
                 children: [
-                  Text(food['name']),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text(food['name']),
+                          Text(food['serving_size'].toString()),
+                        ],
+                      ),
+                      Text(food['price'].toString()),
+                    ],
+                  ),
+                  const Divider(
+                    height: 10,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                    color: Colors.grey,
+                  ),
+                  const Text("Lorem ipsum"),
+                  const Divider(
+                    height: 10,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                    color: Colors.grey,
+                  ),
+                  const Text("Nutritional value per 100g"),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text(food['calories'].toString()),
+                          const Text("calories"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(food['proteins'].toString()),
+                          const Text("proteins"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(food['fats'].toString()),
+                          const Text("fat"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(food['carbs'].toString()),
+                          const Text("carbs"),
+                        ],
+                      )
+                    ],
+                  ),
                   CreateCartForm(food: food),
                 ],
               );

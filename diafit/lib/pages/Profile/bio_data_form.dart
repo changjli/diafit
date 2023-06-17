@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/components/custom_textfield.dart';
 import 'package:diafit/controller/custom_function.dart';
 import 'package:diafit/controller/validator.dart';
-import 'package:diafit/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 
 // Define a custom Form widget.
 class BioDataForm extends StatefulWidget {
@@ -43,7 +46,7 @@ class BioDataFormState extends State<BioDataForm> {
 
   String id = "";
   String apiToken = "";
-  User? user;
+  Map user = {};
 
   Future<void> getAuth() async {
     Map temp = await CustomFunction.getAuth();
@@ -60,17 +63,16 @@ class BioDataFormState extends State<BioDataForm> {
           headers: {"Authorization": "Bearer $apiToken"});
 
       if (response.statusCode == 200) {
-        Map data = jsonDecode(response.body);
-        user = User.fromJson(data);
+        user = jsonDecode(response.body);
 
         // initial value
-        emailController.text = user!.email ?? '';
-        nameController.text = user!.name! ?? '';
-        genderController.text = user!.gender! ?? '';
-        ageController.text = user!.age!.toString() ?? '';
-        heightController.text = user!.height!.toString() ?? '';
-        weightController.text = user!.weight!.toString() ?? '';
-        addressController.text = user!.address! ?? '';
+        emailController.text = user["email"] ?? '';
+        nameController.text = user["name"] ?? '';
+        genderController.text = user["gender"] ?? '';
+        ageController.text = user["age"].toString() ?? '';
+        heightController.text = user["height"].toString() ?? '';
+        weightController.text = user["weight"].toString() ?? '';
+        addressController.text = user["address"] ?? '';
       }
     } catch (e) {
       print(e);
@@ -115,6 +117,19 @@ class BioDataFormState extends State<BioDataForm> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  File? image;
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
     }
   }
 
@@ -206,6 +221,9 @@ class BioDataFormState extends State<BioDataForm> {
                     const SizedBox(
                       height: 30.0,
                     ),
+                    ElevatedButton(
+                        onPressed: pickImage,
+                        child: const Text('Pick image from gallery')),
                     SizedBox(
                       width: 150,
                       height: 50,
@@ -216,7 +234,7 @@ class BioDataFormState extends State<BioDataForm> {
                     ),
                     const SizedBox(
                       height: 10,
-                    )
+                    ),
                   ],
                 ),
               ),
