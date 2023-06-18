@@ -19,6 +19,7 @@ class _NutritionTrackerState extends State<NutritionTracker> {
   String apiToken = "";
   bool isLoading = true;
   List<Nutrition> records = [];
+  DateTime? date;
 
   Future<void> getToken() async {
     Map auth = await CustomFunction.getAuth();
@@ -58,6 +59,7 @@ class _NutritionTrackerState extends State<NutritionTracker> {
   void initState() {
     super.initState();
     // error
+    date = DateTime.now();
     getReport(DateUtils.dateOnly(DateTime.now()));
     // harus date doang
   }
@@ -100,6 +102,7 @@ class _NutritionTrackerState extends State<NutritionTracker> {
                 onDateChanged: (DateTime value) async {
                   setState(() {
                     isLoading = true;
+                    date = value;
                   });
                   await getReport(value);
                 },
@@ -108,11 +111,12 @@ class _NutritionTrackerState extends State<NutritionTracker> {
               nutritionRecordsList,
               // add
               IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     PersistentNavBarNavigator.pushNewScreen(context,
-                            screen: const CreateNutrition())
-                        .then((value) {
-                      getReport(DateUtils.dateOnly(DateTime.now()));
+                        screen: CreateNutrition(
+                          date: date,
+                        )).then((value) async {
+                      await getReport(DateUtils.dateOnly(DateTime.now()));
                     });
                   },
                   icon: const Icon(Icons.add)),

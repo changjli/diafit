@@ -15,6 +15,7 @@ class ExerciseTracker extends StatefulWidget {
 
 // refactor
 class _ExerciseTrackerState extends State<ExerciseTracker> {
+  DateTime? date;
   String apiToken = "";
   bool isLoading = true;
   List records = [];
@@ -57,6 +58,7 @@ class _ExerciseTrackerState extends State<ExerciseTracker> {
   void initState() {
     super.initState();
     // error
+    date = DateTime.now();
     getReport(DateUtils.dateOnly(DateTime.now()));
     // harus date doang
   }
@@ -173,6 +175,7 @@ class _ExerciseTrackerState extends State<ExerciseTracker> {
                 onDateChanged: (DateTime value) async {
                   setState(() {
                     isLoading = true;
+                    date = value;
                   });
                   await getReport(value);
                 },
@@ -183,7 +186,7 @@ class _ExerciseTrackerState extends State<ExerciseTracker> {
               IconButton(
                   onPressed: () {
                     PersistentNavBarNavigator.pushNewScreen(context,
-                            screen: const CreateExercise())
+                            screen: CreateExercise(date: date))
                         .then((value) {
                       getReport(DateUtils.dateOnly(DateTime.now()));
                     });

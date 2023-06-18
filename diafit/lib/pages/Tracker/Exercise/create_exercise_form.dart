@@ -10,7 +10,8 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 // Define a custom Form widget.
 class CreateExerciseForm extends StatefulWidget {
-  const CreateExerciseForm({super.key});
+  DateTime? date;
+  CreateExerciseForm({super.key, required this.date});
 
   @override
   CreateExerciseFormState createState() {
@@ -32,6 +33,9 @@ class CreateExerciseFormState extends State<CreateExerciseForm> {
   // of the TextField.
   final exerciseController = TextEditingController();
   final durationController = TextEditingController();
+  final timeController = TextEditingController();
+
+  DateTime? dateTime;
 
   @override
   void dispose() {
@@ -63,13 +67,19 @@ class CreateExerciseFormState extends State<CreateExerciseForm> {
       if (response.statusCode == 200) {
         Map data = output[0];
         PersistentNavBarNavigator.pushNewScreen(context,
-            screen: ResultExercise(result: data));
+            screen: ResultExercise(result: data, date: dateTime));
       } else {
         print('error');
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<TimeOfDay?> inputTime() async {
+    TimeOfDay? time = await showTimePicker(
+        context: context, initialTime: const TimeOfDay(hour: 0, minute: 0));
+    return time;
   }
 
   @override
@@ -96,6 +106,25 @@ class CreateExerciseFormState extends State<CreateExerciseForm> {
             ),
             const SizedBox(
               height: 20.0,
+            ),
+            TextField(
+              controller: timeController, //editing controller of this TextField
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Time" //label text of field
+                  ),
+              readOnly: true, // when true user cannot edit text
+              onTap: () async {
+                TimeOfDay? time = await inputTime();
+                setState(() {
+                  timeController.text = time.toString();
+                  dateTime = DateTime(widget.date!.year, widget.date!.month,
+                      widget.date!.day, time!.hour, time.minute);
+                });
+              },
+            ),
+            const SizedBox(
+              height: 20,
             ),
             CustomButton(
               content: 'calculate',

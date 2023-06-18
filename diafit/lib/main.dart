@@ -36,7 +36,7 @@ Future<void> main() async {
       routes: {
         '/login': (context) {
           // auto login
-          if (login != null && login == true) {
+          if (login != null) {
             return const CustomBottomNavigationBar();
           }
           return const Login();

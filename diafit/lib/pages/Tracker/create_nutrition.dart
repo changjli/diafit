@@ -2,7 +2,8 @@ import 'package:diafit/pages/Tracker/create_nutrition_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateNutrition extends StatefulWidget {
-  const CreateNutrition({super.key});
+  DateTime? date;
+  CreateNutrition({super.key, required this.date});
 
   @override
   State<CreateNutrition> createState() => _CreateNutritionState();
@@ -15,7 +16,9 @@ class _CreateNutritionState extends State<CreateNutrition> {
       appBar: AppBar(
         title: const Text('Add Nutrition'),
       ),
-      body: const CreateNutritionForm(),
+      body: CreateNutritionForm(
+        date: widget.date,
+      ),
     );
   }
 }

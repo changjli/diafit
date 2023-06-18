@@ -4,8 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class ResultExercise extends StatefulWidget {
+  DateTime? date;
   final Map result;
-  const ResultExercise({super.key, required this.result});
+  ResultExercise({super.key, required this.result, required this.date});
 
   @override
   State<ResultExercise> createState() => _ResultExerciseState();
@@ -38,6 +39,7 @@ class _ResultExerciseState extends State<ResultExercise> {
           "duration_minutes": widget.result['duration_minutes'].toString(),
           "calories_per_hour": widget.result['calories_per_hour'].toString(),
           "total_calories": widget.result['total_calories'].toString(),
+          "date": widget.date.toString(),
         }),
       );
 

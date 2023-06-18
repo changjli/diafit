@@ -2,7 +2,8 @@ import 'package:diafit/pages/Tracker/Glucose/create_glucose_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateGlucose extends StatefulWidget {
-  const CreateGlucose({super.key});
+  DateTime? date;
+  CreateGlucose({super.key, required this.date});
 
   @override
   State<CreateGlucose> createState() => _CreateGlucoseState();
@@ -15,7 +16,7 @@ class _CreateGlucoseState extends State<CreateGlucose> {
       appBar: AppBar(
         title: const Text('Add Glucose'),
       ),
-      body: const CreateGlucoseForm(),
+      body: CreateGlucoseForm(date: widget.date),
     );
   }
 }

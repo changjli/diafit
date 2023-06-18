@@ -5,7 +5,8 @@ import 'dart:convert';
 
 class ResultNutrition extends StatefulWidget {
   final Map result;
-  const ResultNutrition({super.key, required this.result});
+  DateTime? date;
+  ResultNutrition({super.key, required this.result, required this.date});
 
   @override
   State<ResultNutrition> createState() => _ResultNutritionState();
@@ -37,6 +38,7 @@ class _ResultNutritionState extends State<ResultNutrition> {
           "name": widget.result['name'],
           "calories": widget.result['calories'].toString(),
           "serving_size_g": widget.result['serving_size_g'].toString(),
+          "date": widget.date.toString(),
         }),
       );
 

@@ -1,4 +1,9 @@
+import 'package:diafit/components/custom_button.dart';
+import 'package:diafit/controller/custom_function.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 // Future<void> main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +20,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Map auth = {};
+  final _formKey = GlobalKey<FormState>();
+
+  DateTime? date;
+  DateTime? startDate;
+  DateTime? endDate;
+
+  String id = "";
+  String apiToken = "";
+
+  var startDateController = TextEditingController();
+  var endDateController = TextEditingController();
+
+  @override
+  void dispose() {
+    startDateController.dispose();
+    endDateController.dispose();
+    super.dispose();
+  }
+
+  Future<void> getAuth() async {
+    Map temp = await CustomFunction.getAuth();
+    id = temp['id'];
+    apiToken = temp['apiToken'];
+  }
+
+  void validateInput() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+    }
+  }
 
   // void authorize() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,6 +73,39 @@ class _HomeState extends State<Home> {
     // authorize();
   }
 
+  Future<DateTime?> datePicker() async {
+    DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(), //get today's date
+        firstDate: DateTime(
+            2000), //DateTime.now() - not to allow to choose before today.
+        lastDate: DateTime(2101));
+    return date;
+  }
+
+  Future<void> getNutritionReport() async {
+    await getAuth();
+    try {
+      http.Response response = await http.get(
+          Uri.parse(
+              "http://10.0.2.2:8000/api/nutrition/report/summary?start_date=$startDate&end_date=$endDate"),
+          headers: {"Authorization": "Bearer $apiToken"});
+
+      Map output = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        if (output['success'] == true) {
+          List data = output['data'];
+          print(data);
+        } else {
+          print("there is no data");
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // String? route = currentRoute();
@@ -46,6 +113,49 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+      ),
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller:
+                      startDateController, //editing controller of this TextField
+                  decoration: const InputDecoration(
+                      icon: Icon(Icons.calendar_today), //icon of text field
+                      labelText: "Start Date" //label text of field
+                      ),
+                  readOnly: true, // when true user cannot edit text
+                  onTap: () async {
+                    date = await datePicker();
+                    setState(() {
+                      startDateController.text = date.toString();
+                      startDate = date;
+                    });
+                  },
+                ),
+                TextField(
+                    controller: endDateController,
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.calendar_today),
+                      labelText: "End Date",
+                    ),
+                    readOnly: true,
+                    onTap: () async {
+                      date = await datePicker();
+                      setState(() {
+                        endDateController.text = date.toString();
+                        endDate = date;
+                      });
+                    }),
+                CustomButton(content: 'generate', function: getNutritionReport)
+              ],
+            ),
+          ),
+        ),
       ),
       // bottomNavigationBar: CustomBottomNavigationBar(route: route),
     );
@@ -105,5 +215,22 @@ class _HomeState extends State<Home> {
     //   // },
     //   child: const Text('logout'),
     // );
+  }
+}
+
+class NutritionChart extends StatefulWidget {
+  const NutritionChart({super.key});
+
+  @override
+  State<NutritionChart> createState() => _NutritionChartState();
+}
+
+class _NutritionChartState extends State<NutritionChart> {
+  @override
+  Widget build(BuildContext context) {
+    return SfCartesianChart(series: <LineSeries<Map, String>>[
+      LineSeries<Map, String>(dataSource: <Map>[
+      ])
+    ])
   }
 }

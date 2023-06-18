@@ -16,6 +16,7 @@ class GlucoseTracker extends StatefulWidget {
 
 // refactor
 class _GlucoseTrackerState extends State<GlucoseTracker> {
+  DateTime? date;
   String apiToken = "";
   bool isLoading = true;
   List records = [];
@@ -57,6 +58,7 @@ class _GlucoseTrackerState extends State<GlucoseTracker> {
   void initState() {
     super.initState();
     // error
+    date = DateTime.now();
     getReport(DateUtils.dateOnly(DateTime.now()));
     // harus date doang
   }
@@ -149,6 +151,7 @@ class _GlucoseTrackerState extends State<GlucoseTracker> {
                 onDateChanged: (DateTime value) async {
                   setState(() {
                     isLoading = true;
+                    date = value;
                   });
                   await getReport(value);
                 },
@@ -159,7 +162,7 @@ class _GlucoseTrackerState extends State<GlucoseTracker> {
               IconButton(
                   onPressed: () {
                     PersistentNavBarNavigator.pushNewScreen(context,
-                            screen: const CreateGlucose())
+                            screen: CreateGlucose(date: date))
                         .then((value) {
                       getReport(DateUtils.dateOnly(DateTime.now()));
                     });
