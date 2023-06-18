@@ -43,6 +43,7 @@ dependencies:
   input_quantity: ^1.2.1
   image_picker: ^0.8.9
   path_provider: ^2.0.15
+  flutter_local_notifications: ^14.1.1
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +67,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/
 
   fonts:
   - family: Poppins

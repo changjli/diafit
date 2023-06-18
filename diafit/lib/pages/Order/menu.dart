@@ -207,16 +207,18 @@ class CustomCard extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.arrow_forward_ios,
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                        ),
                       ),
                     ),
                   ),

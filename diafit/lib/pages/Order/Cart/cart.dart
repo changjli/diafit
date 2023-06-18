@@ -223,6 +223,7 @@ class CartCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Expanded(child: Image(image: NetworkImage(cart["image"]))),
               Expanded(
                 flex: 1,
                 child: Column(

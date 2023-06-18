@@ -1,5 +1,5 @@
 import 'package:diafit/pages/Tracker/Exercise/exercise_tracker.dart';
-import 'package:diafit/pages/Tracker/glucose_tracker.dart';
+import 'package:diafit/pages/Tracker/Glucose/glucose_tracker.dart';
 import 'package:diafit/pages/Tracker/nutrition_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';

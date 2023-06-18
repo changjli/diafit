@@ -1,12 +1,16 @@
 import 'package:diafit/components/custom_bottom_navigation_bar.dart';
+import 'package:diafit/notification_service.dart';
 import 'package:diafit/pages/login.dart';
 import 'package:diafit/pages/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 Future<void> main() async {
-  // auth
+  // auth & notification
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
+  tz.initializeTimeZones();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? login = prefs.getBool('login');
 
@@ -32,7 +36,7 @@ Future<void> main() async {
       routes: {
         '/login': (context) {
           // auto login
-          if (login != null || login == true) {
+          if (login != null && login == true) {
             return const CustomBottomNavigationBar();
           }
           return const Login();

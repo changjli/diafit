@@ -26,6 +26,7 @@ class CreateMenuFormState extends State<CreateMenuForm> {
   final servingController = TextEditingController();
   final priceController = TextEditingController();
   final dateController = TextEditingController();
+  final imageController = TextEditingController();
 
   @override
   void dispose() {
@@ -33,6 +34,7 @@ class CreateMenuFormState extends State<CreateMenuForm> {
     servingController.dispose();
     priceController.dispose();
     dateController.dispose();
+    imageController.dispose();
     super.dispose();
   }
 
@@ -91,6 +93,7 @@ class CreateMenuFormState extends State<CreateMenuForm> {
           "carbs": food.carbs,
           "price": food.price,
           "date": food.date.toString(),
+          "image": imageController.text,
         }),
       );
 
@@ -145,6 +148,15 @@ class CreateMenuFormState extends State<CreateMenuForm> {
               content: 'date',
               icon: Icons.calendar_month,
               controller: dateController,
+              validator: Validator.servingValidator,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            CustomTextfield(
+              content: 'image',
+              icon: Icons.link,
+              controller: imageController,
               validator: Validator.servingValidator,
             ),
             const SizedBox(

@@ -116,6 +116,10 @@ class FoodCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
+                      child: Image(
+                    image: NetworkImage(food["image"]),
+                  )),
+                  Expanded(
                     flex: 1,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -6,7 +6,6 @@ import 'package:diafit/controller/custom_function.dart';
 import 'package:diafit/controller/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
@@ -49,6 +48,8 @@ class BioDataFormState extends State<BioDataForm> {
   String id = "";
   String apiToken = "";
   Map user = {};
+  File? image;
+  File? newImage;
 
   Future<void> getAuth() async {
     Map temp = await CustomFunction.getAuth();
@@ -75,6 +76,10 @@ class BioDataFormState extends State<BioDataForm> {
         heightController.text = user["height"].toString() ?? '';
         weightController.text = user["weight"].toString() ?? '';
         addressController.text = user["address"] ?? '';
+
+        if (user["image"] != null) {
+          image = File(user["image"]);
+        }
       }
     } catch (e) {
       print(e);
@@ -106,23 +111,19 @@ class BioDataFormState extends State<BioDataForm> {
           "height": double.parse(heightController.text),
           "weight": double.parse(weightController.text),
           "address": addressController.text,
+          "image": image!.path,
         }),
       );
-
-      print(response.statusCode);
-
       Map output = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         Map data = output['data'];
-        // kalo berhasil update
+        setState(() {});
       }
     } catch (e) {
       print(e);
     }
   }
-
-  File? image;
 
   Future pickImage() async {
     try {
@@ -136,18 +137,23 @@ class BioDataFormState extends State<BioDataForm> {
       // directory
       final Directory duplicateFileDirectory =
           await getApplicationDocumentsDirectory();
+      // final Directory? duplicateFileDirectory =
+      //     await getExternalStorageDirectory();
       final String duplicateFilePath = duplicateFileDirectory.path;
       final String fileName = basename(file.path);
+      final String imagePath = "$duplicateFilePath/$fileName";
 
       // save
       await file.saveTo('$duplicateFilePath/$fileName');
-      final File localImage = File('$duplicateFilePath/$fileName');
+      final File localImage = File(imagePath);
 
-      setState(() => image = localImage);
+      image = localImage;
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
+
+  // kalo pencet tombol balik delete image
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +179,13 @@ class BioDataFormState extends State<BioDataForm> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const ProfilePicture(
-                      name: 'Nicholas Audric',
-                      radius: 50,
-                      fontsize: 20,
+                    CircleAvatar(
+                      radius: 80,
+                      backgroundImage: image == null
+                          ? const AssetImage(
+                                  'assets/images/profile_picture.png')
+                              as ImageProvider
+                          : FileImage(File(image!.path)),
                     ),
                     const SizedBox(
                       height: 10,
@@ -237,9 +246,11 @@ class BioDataFormState extends State<BioDataForm> {
                     const SizedBox(
                       height: 30.0,
                     ),
+                    // Image(image: FileImage(File(image!.path))),
                     ElevatedButton(
-                        onPressed: pickImage,
-                        child: const Text('Pick image from gallery')),
+                      onPressed: pickImage,
+                      child: const Text('Pick image from gallery'),
+                    ),
                     SizedBox(
                       width: 150,
                       height: 50,
