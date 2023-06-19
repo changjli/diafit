@@ -29,6 +29,8 @@ class _HomeState extends State<Home> {
   String id = "";
   String apiToken = "";
 
+  List<Nutrition> nutritions = [];
+
   var startDateController = TextEditingController();
   var endDateController = TextEditingController();
 
@@ -96,7 +98,10 @@ class _HomeState extends State<Home> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
-          print(data);
+          setState(() {
+            nutritions = data.map((d) => Nutrition.fromJson(d)).toList();
+            print(nutritions[0]);
+          });
         } else {
           print("there is no data");
         }
@@ -151,7 +156,8 @@ class _HomeState extends State<Home> {
                         endDate = date;
                       });
                     }),
-                CustomButton(content: 'generate', function: getNutritionReport)
+                CustomButton(content: 'generate', function: getNutritionReport),
+                NutritionChart(nutritions: nutritions),
               ],
             ),
           ),
@@ -219,7 +225,8 @@ class _HomeState extends State<Home> {
 }
 
 class NutritionChart extends StatefulWidget {
-  const NutritionChart({super.key});
+  List<Nutrition> nutritions;
+  NutritionChart({super.key, required this.nutritions});
 
   @override
   State<NutritionChart> createState() => _NutritionChartState();
@@ -228,9 +235,24 @@ class NutritionChart extends StatefulWidget {
 class _NutritionChartState extends State<NutritionChart> {
   @override
   Widget build(BuildContext context) {
-    return SfCartesianChart(series: <LineSeries<Map, String>>[
-      LineSeries<Map, String>(dataSource: <Map>[
-      ])
-    ])
+    return SfCartesianChart(
+        primaryXAxis: DateTimeAxis(),
+        series: <LineSeries<Nutrition, DateTime>>[
+          LineSeries<Nutrition, DateTime>(
+            dataSource: widget.nutritions,
+            xValueMapper: (Nutrition data, _) => data.date,
+            yValueMapper: (Nutrition data, _) => data.calories_consumed,
+          )
+        ]);
   }
+}
+
+class Nutrition {
+  final DateTime date;
+  final double calories_consumed;
+  Nutrition({required this.date, required this.calories_consumed});
+
+  Nutrition.fromJson(Map json)
+      : date = DateTime.parse(json["date"]),
+        calories_consumed = json["calories_consumed"];
 }

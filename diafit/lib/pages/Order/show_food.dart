@@ -132,7 +132,7 @@ class _ShowFoodState extends State<ShowFood> {
         ),
       ),
       bottomNavigationBar: CreateCartForm(
-        food: food,
+        foodId: widget.foodId,
       ),
     );
   }

@@ -8,8 +8,8 @@ import 'package:input_quantity/input_quantity.dart';
 
 // Define a custom Form widget.
 class CreateCartForm extends StatefulWidget {
-  final Map food;
-  const CreateCartForm({super.key, required this.food});
+  final String foodId;
+  const CreateCartForm({super.key, required this.foodId});
 
   @override
   CreateCartFormState createState() {
@@ -50,7 +50,7 @@ class CreateCartFormState extends State<CreateCartForm> {
           'Content-Type': 'application/json; charset=UTF-8'
         },
         body: jsonEncode({
-          "food_id": widget.food['id'],
+          "food_id": widget.foodId,
           "food_quantity": quantityController,
         }),
       );

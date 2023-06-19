@@ -13,255 +13,151 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OrderPage(),
+      home: OrderPage2(),
     );
   }
 }
 
-class OrderPage extends StatelessWidget {
-  List<String> nutritions_val = ["297", "16", "18.82", "16.32"];
-  List<String> nutritions = ["kcal", "proteins", "fat", "carbs"];
+class OrderPage2 extends StatelessWidget {
+  const OrderPage2({super.key});
 
-  OrderPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2.5,
-            decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
-                image: DecorationImage(
-                  image: AssetImage(
-                    "images/chicken.png",
-                  ),
-                  fit: BoxFit.cover,
-                  opacity: 0.9,
-                )),
-            child: const Column(
+            height: 200,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Fried Chicken",
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                            ),
-                          ),
-                          Text(
-                            "Rp. 30.000",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "~300gr",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(
-                        height: 15,
+                Container(
+                  width: 380,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0, 2.0),
+                        blurRadius: 10,
+                        spreadRadius: -5,
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: .3,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: .3,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  "Nutritional value per 100gr",
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    for (int i = 0; i < 4; i++)
+                  child: Row(
+                    children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 2,
+                          horizontal: 20,
+                          vertical: 28,
                         ),
                         child: Column(
                           children: [
-                            Text(
-                              nutritions_val[i],
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Container(
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    "Mon",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Poppins',
+                                      letterSpacing: 2,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          "images/weather-icon.png",
+                                        ),
+                                        fit: BoxFit.cover,
+                                        opacity: 0.9,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              nutritions[i],
-                              style: const TextStyle(
-                                color: Color.fromARGB(179, 0, 0, 0),
+                            const Text(
+                              "13 Juni 2023",
+                              style: TextStyle(
+                                color: Colors.grey,
                                 fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 2.8,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 150,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          image: const DecorationImage(
+                            image: AssetImage(
+                              "images/junkFood.jpg",
+                            ),
+                            fit: BoxFit.cover,
+                            opacity: 0.9,
+                          ),
+                        ),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "5 Times",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 26,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
                       ),
-                  ],
+                      Container(
+                        margin: const EdgeInsets.only(left: 15),
+                        width: 50,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(13),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 20,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    "images/next-icon.png",
+                                  ),
+                                  fit: BoxFit.cover,
+                                  opacity: 0.9,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        height: 100,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              width: 100,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "-",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
-                  ),
-                  Text(
-                    "1",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    "+",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 15,
-              ),
-              width: 280,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Add to cart",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Rp. 30.000",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
