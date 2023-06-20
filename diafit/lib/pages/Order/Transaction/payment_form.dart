@@ -23,6 +23,7 @@ class PaymentFormState extends State<PaymentForm> {
 
   final paymentController = TextEditingController();
   final voucherController = TextEditingController();
+  String? location = "";
 
   @override
   void dispose() {
@@ -57,6 +58,7 @@ class PaymentFormState extends State<PaymentForm> {
           "_method": 'put',
           'payment': paymentController.text,
           'voucher_code': voucherController.text,
+          'location': location,
         }),
       );
 
@@ -122,9 +124,47 @@ class PaymentFormState extends State<PaymentForm> {
             const SizedBox(
               height: 20.0,
             ),
+            const Text('Where do you want to pick up your food?'),
+            Column(
+              children: [
+                RadioListTile(
+                  title: const Text("Sudirman"),
+                  value: "Sudirman",
+                  groupValue: location,
+                  onChanged: (value) {
+                    setState(() {
+                      location = value.toString();
+                    });
+                  },
+                ),
+                RadioListTile(
+                  title: const Text("Thamrin"),
+                  value: "Thamrin",
+                  groupValue: location,
+                  onChanged: (value) {
+                    setState(() {
+                      location = value.toString();
+                    });
+                  },
+                ),
+                RadioListTile(
+                  title: const Text("Fatmawati"),
+                  value: "Fatmawati",
+                  groupValue: location,
+                  onChanged: (value) {
+                    setState(() {
+                      location = value.toString();
+                    });
+                  },
+                )
+              ],
+            ),
             CustomButton(
               content: 'add',
               function: validateInput,
+            ),
+            const SizedBox(
+              height: 20.0,
             ),
             CustomButton(content: 'cancel', function: rollBack),
           ],
