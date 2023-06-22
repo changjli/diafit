@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:diafit/Order/order.dart';
+import 'package:diafit/Order/food_rec.dart';
+import 'package:diafit/Order/cart.dart';
 // import 'package:diafit/Tracker/tracker.dart';
 
 void main() {
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Cart(),
+      home: OrderPage(),
     );
   }
 }
