@@ -1,3 +1,4 @@
+import 'package:diafit/Account/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:diafit/Order/order.dart';
 import 'package:diafit/Order/food_rec.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OrderPage(),
+      home: Cart(),
     );
   }
 }

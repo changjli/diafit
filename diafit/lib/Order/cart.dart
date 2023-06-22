@@ -12,7 +12,14 @@ class Cart extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 8.5,
               decoration: BoxDecoration(
-                color: Colors.amber,
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 168, 138, 205),
+                    Color.fromARGB(255, 93, 56, 240)
+                  ],
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.bottomRight,
+                ),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
@@ -27,6 +34,7 @@ class Cart extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 30,
+                      color: Colors.white,
                     ),
                   ),
                   Container(
