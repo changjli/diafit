@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FoodRecommendPage extends StatelessWidget {
+  const FoodRecommendPage({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 200,
             child: Row(
@@ -17,7 +20,7 @@ class FoodRecommendPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
                         offset: Offset(0, 2.0),
@@ -29,7 +32,7 @@ class FoodRecommendPage extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 28,
                         ),
@@ -38,7 +41,7 @@ class FoodRecommendPage extends StatelessWidget {
                             Container(
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Mon",
                                     style: TextStyle(
                                       fontSize: 30,
@@ -51,7 +54,7 @@ class FoodRecommendPage extends StatelessWidget {
                                   Container(
                                     width: 40,
                                     height: 40,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
                                           "images/weather-icon.png",
@@ -64,7 +67,7 @@ class FoodRecommendPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Text(
+                            const Text(
                               "13 Juni 2023",
                               style: TextStyle(
                                 color: Colors.grey,
@@ -81,7 +84,7 @@ class FoodRecommendPage extends StatelessWidget {
                         height: 90,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             image: AssetImage(
                               "images/junkFood.jpg",
                             ),
@@ -89,7 +92,7 @@ class FoodRecommendPage extends StatelessWidget {
                             opacity: 0.9,
                           ),
                         ),
-                        child: Column(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -104,7 +107,7 @@ class FoodRecommendPage extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 15),
+                        margin: const EdgeInsets.only(left: 15),
                         width: 50,
                         height: 90,
                         decoration: BoxDecoration(
@@ -117,7 +120,7 @@ class FoodRecommendPage extends StatelessWidget {
                             Container(
                               width: 20,
                               height: 20,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
                                     "images/next-icon.png",

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class OrderPage extends StatelessWidget {
   List<String> nutritions_val = ["297", "16", "18.82", "16.32"];
   List<String> nutritions = ["kcal", "proteins", "fat", "carbs"];
+
+  OrderPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +13,7 @@ class OrderPage extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 2.5,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(20),
@@ -24,13 +26,13 @@ class OrderPage extends StatelessWidget {
                   fit: BoxFit.cover,
                   opacity: 0.9,
                 )),
-            child: Column(
+            child: const Column(
               children: [
                 Spacer(),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(
@@ -41,7 +43,7 @@ class OrderPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +51,7 @@ class OrderPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Fried Chicken",
                             style: TextStyle(
                               fontFamily: 'Montserrat',
@@ -69,17 +71,17 @@ class OrderPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text(
+                      const Text(
                         "~300gr",
                         style: TextStyle(
                             fontSize: 16,
                             color: Colors.black45,
                             fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                     ],
@@ -93,10 +95,10 @@ class OrderPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
                   textAlign: TextAlign.justify,
                   style: TextStyle(
@@ -104,7 +106,7 @@ class OrderPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -115,10 +117,10 @@ class OrderPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   "Nutritional value per 100gr",
                   style: TextStyle(
                     color: Colors.black54,
@@ -131,7 +133,7 @@ class OrderPage extends StatelessWidget {
                   children: [
                     for (int i = 0; i < 4; i++)
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 2,
                         ),
@@ -139,7 +141,7 @@ class OrderPage extends StatelessWidget {
                           children: [
                             Text(
                               nutritions_val[i],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -147,7 +149,7 @@ class OrderPage extends StatelessWidget {
                             ),
                             Text(
                               nutritions[i],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color.fromARGB(179, 0, 0, 0),
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -164,20 +166,20 @@ class OrderPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         height: 100,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               width: 100,
               height: 60,
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -208,7 +210,7 @@ class OrderPage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 15,
               ),
@@ -218,7 +220,7 @@ class OrderPage extends StatelessWidget {
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(

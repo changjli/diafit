@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 class Cart extends StatelessWidget {
+  const Cart({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 244, 244, 244),
+      backgroundColor: const Color.fromARGB(255, 244, 244, 244),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 8.5,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Color.fromARGB(255, 168, 138, 205),
@@ -29,7 +32,7 @@ class Cart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Order List",
                     style: TextStyle(
                       fontFamily: 'Poppins',
@@ -40,7 +43,7 @@ class Cart extends StatelessWidget {
                   Container(
                     width: 18,
                     height: 18,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("images/cross-icon.png"),
                         fit: BoxFit.cover,
@@ -51,17 +54,17 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width / 1.1,
               height: 110,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0, 5.0),
@@ -74,7 +77,7 @@ class Cart extends StatelessWidget {
                 children: [
                   Container(
                     width: 110,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("images/chicken.png"),
                         fit: BoxFit.contain,
@@ -82,14 +85,14 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: const Text(
                             "Fried Chicken",
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -98,14 +101,14 @@ class Cart extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           width: 70,
                           height: 27,
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -138,7 +141,7 @@ class Cart extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  const SizedBox(
                     width: 115,
                     height: 60,
                     child: Column(
@@ -158,17 +161,17 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width / 1.1,
               height: 110,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0, 5.0),
@@ -181,7 +184,7 @@ class Cart extends StatelessWidget {
                 children: [
                   Container(
                     width: 110,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("images/chicken.png"),
                         fit: BoxFit.contain,
@@ -189,14 +192,14 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: const Text(
                             "Fried Chicken",
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -205,14 +208,14 @@ class Cart extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           width: 70,
                           height: 27,
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -245,7 +248,7 @@ class Cart extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  const SizedBox(
                     width: 115,
                     height: 60,
                     child: Column(
@@ -265,17 +268,17 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width / 1.1,
               height: 110,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0, 5.0),
@@ -288,7 +291,7 @@ class Cart extends StatelessWidget {
                 children: [
                   Container(
                     width: 110,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("images/chicken.png"),
                         fit: BoxFit.contain,
@@ -296,14 +299,14 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: const Text(
                             "Fried Chicken",
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -312,14 +315,14 @@ class Cart extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           width: 70,
                           height: 27,
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -352,7 +355,7 @@ class Cart extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  const SizedBox(
                     width: 115,
                     height: 60,
                     child: Column(
@@ -372,17 +375,17 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width / 1.1,
               height: 110,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0, 5.0),
@@ -395,7 +398,7 @@ class Cart extends StatelessWidget {
                 children: [
                   Container(
                     width: 110,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("images/chicken.png"),
                         fit: BoxFit.contain,
@@ -403,14 +406,14 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: const Text(
                             "Fried Chicken",
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -419,14 +422,14 @@ class Cart extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           width: 70,
                           height: 27,
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -459,7 +462,7 @@ class Cart extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  const SizedBox(
                     width: 115,
                     height: 60,
                     child: Column(
@@ -479,17 +482,17 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width / 1.1,
               height: 110,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0, 5.0),
@@ -502,7 +505,7 @@ class Cart extends StatelessWidget {
                 children: [
                   Container(
                     width: 110,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("images/chicken.png"),
                         fit: BoxFit.contain,
@@ -510,14 +513,14 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: const Text(
                             "Fried Chicken",
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -526,14 +529,14 @@ class Cart extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           width: 70,
                           height: 27,
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -566,7 +569,7 @@ class Cart extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  const SizedBox(
                     width: 115,
                     height: 60,
                     child: Column(
@@ -586,11 +589,11 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width / 1.15,
               height: 50,
               decoration: BoxDecoration(
@@ -601,7 +604,7 @@ class Cart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    child: Text(
+                    child: const Text(
                       "Type the code",
                       // "-3HXD5H00",
                       style: TextStyle(
@@ -614,17 +617,17 @@ class Cart extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 216, 216, 216),
+                      color: const Color.fromARGB(255, 216, 216, 216),
                       // color: Colors.red,
                       // color: const Color.fromARGB(255, 87, 225, 91),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
+                    child: const Text(
                       "No input",
                       // "Incorrect Promocode",
                       // "Promocode Confirmed",
@@ -640,15 +643,15 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
               ),
               width: MediaQuery.of(context).size.width / 1.23,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: Color.fromARGB(255, 210, 210, 210),
@@ -656,7 +659,7 @@ class Cart extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -680,15 +683,15 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
               ),
               width: MediaQuery.of(context).size.width / 1.23,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: Color.fromARGB(255, 210, 210, 210),
@@ -696,7 +699,7 @@ class Cart extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -720,15 +723,15 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
               ),
               width: MediaQuery.of(context).size.width / 1.23,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: Color.fromARGB(255, 210, 210, 210),
@@ -736,7 +739,7 @@ class Cart extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -760,16 +763,16 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 15),
-              padding: EdgeInsets.symmetric(
+              margin: const EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
               ),
               width: MediaQuery.of(context).size.width / 1.23,
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -800,14 +803,14 @@ class Cart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
             width: MediaQuery.of(context).size.width / 1.1,
             height: 45,
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

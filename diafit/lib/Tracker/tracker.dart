@@ -73,7 +73,7 @@ class TrackerCard extends StatelessWidget {
       color: const Color(0xFF3641B7),
       child: InkWell(
         onTap: () {
-          Placeholder(
+          const Placeholder(
             fallbackHeight: 200,
             fallbackWidth: 200,
             color: Colors.blue,
