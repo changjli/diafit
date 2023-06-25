@@ -26,7 +26,7 @@ class _ShowCartState extends State<ShowCart> {
     try {
       String foodId = widget.foodId;
       http.Response response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/api/food/$foodId"),
+          Uri.parse("http://10.0.2.2:8000/api/cart/$foodId"),
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);
@@ -34,7 +34,6 @@ class _ShowCartState extends State<ShowCart> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           food = output['data'];
-          print(food);
         } else {
           print('there is no data');
         }

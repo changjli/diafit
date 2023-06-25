@@ -13,7 +13,17 @@ class ResultExercise extends StatefulWidget {
 }
 
 class _ResultExerciseState extends State<ResultExercise> {
+  final _formKey = GlobalKey<FormState>();
+
   String apiToken = "";
+
+  var caloriesController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    caloriesController.dispose();
+  }
 
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,6 +34,11 @@ class _ResultExerciseState extends State<ResultExercise> {
   void initState() {
     super.initState();
     getToken();
+    if (widget.result['total_calories'] == null) {
+      caloriesController.text = '';
+    } else {
+      caloriesController.text = widget.result['total_calories'].toString();
+    }
   }
 
   void storeExercise() async {
@@ -38,7 +53,7 @@ class _ResultExerciseState extends State<ResultExercise> {
           "name": widget.result['name'],
           "duration_minutes": widget.result['duration_minutes'].toString(),
           "calories_per_hour": widget.result['calories_per_hour'].toString(),
-          "total_calories": widget.result['total_calories'].toString(),
+          "total_calories": double.parse(caloriesController.text),
           "date": widget.date.toString(),
         }),
       );
@@ -60,30 +75,35 @@ class _ResultExerciseState extends State<ResultExercise> {
       appBar: AppBar(
         title: const Text('Nutrition Result'),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(children: [
-          const Text(
-            'Calories Burned:',
-            style: TextStyle(
-              fontSize: 40,
+      body: Column(
+        children: [
+          Text(widget.result['name']),
+          Text(widget.result['duration_minutes'].toString()),
+          Form(
+            key: _formKey,
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: caloriesController,
+                      decoration: const InputDecoration(
+                        label: Text("voucher"),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    ElevatedButton(
+                        onPressed: () => storeExercise(),
+                        child: const Text('store')),
+                  ],
+                ),
+              ),
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            widget.result['total_calories'].toString(),
-            style: const TextStyle(fontSize: 20),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ElevatedButton(
-            onPressed: storeExercise,
-            child: const Text('add to record'),
-          )
-        ]),
+        ],
       ),
     );
   }

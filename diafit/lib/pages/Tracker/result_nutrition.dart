@@ -13,7 +13,17 @@ class ResultNutrition extends StatefulWidget {
 }
 
 class _ResultNutritionState extends State<ResultNutrition> {
+  final _formKey = GlobalKey<FormState>();
+
   String apiToken = "";
+
+  var caloriesController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    caloriesController.dispose();
+  }
 
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,6 +34,11 @@ class _ResultNutritionState extends State<ResultNutrition> {
   void initState() {
     super.initState();
     getToken();
+    if (widget.result['calories'] == null) {
+      caloriesController.text = '';
+    } else {
+      caloriesController.text = widget.result['calories'].toString();
+    }
   }
 
   void storeNutrition() async {
@@ -36,7 +51,7 @@ class _ResultNutritionState extends State<ResultNutrition> {
         },
         body: jsonEncode({
           "name": widget.result['name'],
-          "calories": widget.result['calories'].toString(),
+          "calories": double.parse(caloriesController.text),
           "serving_size_g": widget.result['serving_size_g'].toString(),
           "date": widget.date.toString(),
         }),
@@ -59,30 +74,35 @@ class _ResultNutritionState extends State<ResultNutrition> {
       appBar: AppBar(
         title: const Text('Nutrition Result'),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Calories Consumed:',
-              style: TextStyle(
-                fontSize: 40,
+      body: Column(
+        children: [
+          Text(widget.result['name']),
+          Text(widget.result['serving_size_g'].toString()),
+          Form(
+            key: _formKey,
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: caloriesController,
+                      decoration: const InputDecoration(
+                        label: Text("voucher"),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    ElevatedButton(
+                        onPressed: () => storeNutrition(),
+                        child: const Text('store')),
+                  ],
+                ),
               ),
             ),
-            Text(
-              widget.result['calories'].toString(),
-              style: const TextStyle(fontSize: 20),
-            ),
-            ElevatedButton(
-              onPressed: storeNutrition,
-              child: const Text('add to record'),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

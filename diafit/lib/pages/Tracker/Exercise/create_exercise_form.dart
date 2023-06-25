@@ -63,7 +63,15 @@ class CreateExerciseFormState extends State<CreateExerciseForm> {
       List output = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        Map data = output[0];
+        Map data = {};
+        if (output.isEmpty) {
+          data = {
+            'name': exerciseController.text,
+            'duration_minutes': durationController.text
+          };
+        } else {
+          data = output[0];
+        }
         PersistentNavBarNavigator.pushNewScreen(context,
             screen: ResultExercise(result: data, date: dateTime));
       } else {

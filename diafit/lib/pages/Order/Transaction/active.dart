@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class History extends StatefulWidget {
-  const History({super.key});
+class Active extends StatefulWidget {
+  const Active({super.key});
 
   @override
-  State<History> createState() => _HistoryState();
+  State<Active> createState() => _ActiveState();
 }
 
-class _HistoryState extends State<History> {
+class _ActiveState extends State<Active> {
   String apiToken = "";
   List transactions = [];
 
@@ -23,7 +23,7 @@ class _HistoryState extends State<History> {
     await getAuth();
     try {
       http.Response response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/api/transaction/history"),
+          Uri.parse("http://10.0.2.2:8000/api/transaction/active"),
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);

@@ -58,7 +58,6 @@ class CreateCartFormState extends State<CreateCartForm> {
       Map output = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        print(output);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute<void>(

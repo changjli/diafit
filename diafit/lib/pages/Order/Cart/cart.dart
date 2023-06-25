@@ -1,4 +1,5 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/Cart/show_cart.dart';
 import 'package:diafit/pages/Order/Transaction/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -273,7 +274,10 @@ class CartCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       ),
       child: InkWell(
-          onTap: () {},
+          onTap: () {
+            PersistentNavBarNavigator.pushNewScreen(context,
+                screen: ShowCart(foodId: cart['food_id']));
+          },
           child: SizedBox(
             height: 100,
             width: MediaQuery.of(context).size.width - 20,

@@ -25,16 +25,13 @@ class _SummaryState extends State<Summary> {
   double? exerciseGoal;
   double? glucoseGoal;
 
+  double nutritionPercentage = 0.0;
+  double exercisePercentage = 0.0;
+
   Future<void> getAuth() async {
     Map temp = await CustomFunction.getAuth();
     id = temp["id"];
     apiToken = temp['apiToken'];
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // authorize();
   }
 
   Future<void> getUser() async {
@@ -61,6 +58,17 @@ class _SummaryState extends State<Summary> {
         await getNutritionReport();
         await getExerciseReport();
         await getGlucoseReport();
+
+        nutritionPercentage =
+            nutrition != null ? (nutrition! / nutritionGoal!) : 0.0;
+        if (nutritionPercentage > 1) {
+          nutritionPercentage = 1.0;
+        }
+        exercisePercentage =
+            exercise != null ? (exercise! / exerciseGoal!) : 0.0;
+        if (exercisePercentage > 1) {
+          exercisePercentage = 1;
+        }
       }
     } catch (e) {
       print(e);
@@ -79,7 +87,7 @@ class _SummaryState extends State<Summary> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
-          nutrition = data[0]['calories_consumed'];
+          nutrition = data[0]['calories_consumed'].toDouble();
         } else {
           print("there is no data");
         }
@@ -101,7 +109,7 @@ class _SummaryState extends State<Summary> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
-          exercise = double.tryParse(data[0]['calories_burned']);
+          exercise = double.parse(data[0]['calories_burned']);
         } else {
           print("there is no data");
         }
@@ -134,11 +142,6 @@ class _SummaryState extends State<Summary> {
 
   @override
   Widget build(BuildContext context) {
-    double nutritionPercentage =
-        nutrition != null ? (nutrition! / nutritionGoal!) : 0.0;
-    print(nutritionPercentage);
-    double exercisePercentage =
-        exercise != null ? (exercise! / exerciseGoal!) : 0.0;
     return FutureBuilder(
       future: getUser(),
       builder: (context, snapshot) {
@@ -161,7 +164,7 @@ class _SummaryState extends State<Summary> {
                   animation: true,
                   percent: nutritionPercentage,
                   center: Text(
-                    "${nutritionPercentage * 100}%",
+                    "${(nutritionPercentage * 100).toStringAsFixed(3)}%",
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
@@ -197,7 +200,7 @@ class _SummaryState extends State<Summary> {
                   animation: true,
                   percent: exercisePercentage,
                   center: Text(
-                    "${exercisePercentage * 100}%",
+                    "${(exercisePercentage * 100).toStringAsFixed(3)}%",
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),

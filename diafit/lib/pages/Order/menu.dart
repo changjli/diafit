@@ -1,6 +1,7 @@
 import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/controller/custom_function.dart';
 import 'package:diafit/pages/Order/Cart/cart.dart';
+import 'package:diafit/pages/Order/Transaction/active.dart';
 import 'package:diafit/pages/Order/Transaction/history.dart';
 import 'package:diafit/pages/Order/show_menu.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,11 @@ class _MenuState extends State<Menu> {
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -107,6 +113,16 @@ class _MenuState extends State<Menu> {
                     function: () async {
                       PersistentNavBarNavigator.pushNewScreen(context,
                           screen: const Cart());
+                    },
+                  )),
+              SizedBox(
+                  height: 50,
+                  width: 100,
+                  child: CustomButton(
+                    content: 'order',
+                    function: () async {
+                      PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: const Active());
                     },
                   )),
               SizedBox(

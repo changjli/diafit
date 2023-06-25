@@ -62,9 +62,18 @@ class CreateNutritionFormState extends State<CreateNutritionForm> {
       );
 
       List otuput = jsonDecode(response.body);
+      print(otuput);
 
       if (response.statusCode == 200) {
-        Map data = otuput[0];
+        Map data = {};
+        if (otuput.isEmpty) {
+          data = {
+            'name': foodController.text,
+            'serving_size_g': double.parse(servingController.text)
+          };
+        } else {
+          data = otuput[0];
+        }
         PersistentNavBarNavigator.pushNewScreen(
           context,
           screen: ResultNutrition(result: data, date: dateTime),
