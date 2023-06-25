@@ -59,13 +59,31 @@ class _ResultNutritionState extends State<ResultNutrition> {
       appBar: AppBar(
         title: const Text('Nutrition Result'),
       ),
-      body: Column(children: [
-        Text(widget.result['calories'].toString()),
-        ElevatedButton(
-          onPressed: storeNutrition,
-          child: const Text('add to record'),
-        )
-      ]),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Calories Consumed:',
+              style: TextStyle(
+                fontSize: 40,
+              ),
+            ),
+            Text(
+              widget.result['calories'].toString(),
+              style: const TextStyle(fontSize: 20),
+            ),
+            ElevatedButton(
+              onPressed: storeNutrition,
+              child: const Text('add to record'),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

@@ -18,7 +18,6 @@ class _PaymentState extends State<Payment> {
       ),
       body: Column(
         children: [
-          Text(widget.transaction['id']),
           PaymentForm(
             transaction: widget.transaction,
           )

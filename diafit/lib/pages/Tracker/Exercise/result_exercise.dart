@@ -60,13 +60,31 @@ class _ResultExerciseState extends State<ResultExercise> {
       appBar: AppBar(
         title: const Text('Nutrition Result'),
       ),
-      body: Column(children: [
-        Text(widget.result['total_calories'].toString()),
-        ElevatedButton(
-          onPressed: storeExercise,
-          child: const Text('add to record'),
-        )
-      ]),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(children: [
+          const Text(
+            'Calories Burned:',
+            style: TextStyle(
+              fontSize: 40,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            widget.result['total_calories'].toString(),
+            style: const TextStyle(fontSize: 20),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: storeExercise,
+            child: const Text('add to record'),
+          )
+        ]),
+      ),
     );
   }
 }

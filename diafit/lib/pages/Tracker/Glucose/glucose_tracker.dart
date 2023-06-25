@@ -122,7 +122,7 @@ class _GlucoseTrackerState extends State<GlucoseTracker> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    records[index]["sugar_level"],
+                                    "${records[index]["sugar_level"]} mg/dl",
                                   ),
                                   const SizedBox(
                                     height: 10,

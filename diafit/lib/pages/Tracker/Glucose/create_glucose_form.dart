@@ -1,6 +1,6 @@
+import 'dart:ffi';
+
 import 'package:diafit/components/custom_button.dart';
-import 'package:diafit/components/custom_textfield.dart';
-import 'package:diafit/controller/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -82,41 +82,57 @@ class CreateGlucoseFormState extends State<CreateGlucoseForm> {
     return Form(
       key: _formKey,
       child: Center(
-        child: Column(
-          children: <Widget>[
-            CustomTextfield(
-                content: 'sugar level',
-                icon: Icons.leaderboard,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(
+                height: 20,
+              ),
+              TextFormField(
                 controller: sugarLevelController,
-                validator: Validator.foodValidator),
-            const SizedBox(
-              height: 20.0,
-            ),
-            TextField(
-              controller: timeController, //editing controller of this TextField
-              decoration: const InputDecoration(
-                  icon: Icon(Icons.calendar_today), //icon of text field
-                  labelText: "Time" //label text of field
+                decoration: const InputDecoration(
+                  label: Row(
+                    children: [
+                      Icon(Icons.change_history_rounded),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text('sugar level'),
+                    ],
                   ),
-              readOnly: true, // when true user cannot edit text
-              onTap: () async {
-                print(widget.date);
-                TimeOfDay? time = await inputTime();
-                setState(() {
-                  timeController.text = time.toString();
-                  dateTime = DateTime(widget.date!.year, widget.date!.month,
-                      widget.date!.day, time!.hour, time.minute);
-                });
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomButton(
-              content: 'calculate',
-              function: validateInput,
-            ),
-          ],
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              TextField(
+                controller:
+                    timeController, //editing controller of this TextField
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.calendar_today), //icon of text field
+                    labelText: "Time" //label text of field
+                    ),
+                readOnly: true, // when true user cannot edit text
+                onTap: () async {
+                  print(widget.date);
+                  TimeOfDay? time = await inputTime();
+                  setState(() {
+                    timeController.text = time.toString();
+                    dateTime = DateTime(widget.date!.year, widget.date!.month,
+                        widget.date!.day, time!.hour, time.minute);
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                content: 'calculate',
+                function: validateInput,
+              ),
+            ],
+          ),
         ),
       ),
     );

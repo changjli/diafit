@@ -1,6 +1,4 @@
 import 'package:diafit/components/custom_button.dart';
-import 'package:diafit/components/custom_textfield.dart';
-import 'package:diafit/controller/validator.dart';
 import 'package:diafit/pages/Tracker/Exercise/result_exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -88,49 +86,70 @@ class CreateExerciseFormState extends State<CreateExerciseForm> {
     return Form(
       key: _formKey,
       child: Center(
-        child: Column(
-          children: <Widget>[
-            CustomTextfield(
-                content: 'exercise',
-                icon: Icons.food_bank,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: <Widget>[
+              TextFormField(
                 controller: exerciseController,
-                validator: Validator.foodValidator),
-            const SizedBox(
-              height: 20.0,
-            ),
-            CustomTextfield(
-              content: 'duration',
-              icon: Icons.punch_clock,
-              controller: durationController,
-              validator: Validator.servingValidator,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            TextField(
-              controller: timeController, //editing controller of this TextField
-              decoration: const InputDecoration(
-                  icon: Icon(Icons.calendar_today), //icon of text field
-                  labelText: "Time" //label text of field
+                decoration: const InputDecoration(
+                  label: Row(
+                    children: [
+                      Icon(Icons.run_circle),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text('exercise'),
+                    ],
                   ),
-              readOnly: true, // when true user cannot edit text
-              onTap: () async {
-                TimeOfDay? time = await inputTime();
-                setState(() {
-                  timeController.text = time.toString();
-                  dateTime = DateTime(widget.date!.year, widget.date!.month,
-                      widget.date!.day, time!.hour, time.minute);
-                });
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomButton(
-              content: 'calculate',
-              function: validateInput,
-            ),
-          ],
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              TextFormField(
+                controller: durationController,
+                decoration: const InputDecoration(
+                  label: Row(
+                    children: [
+                      Icon(Icons.punch_clock),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text('duration in minutes'),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              TextField(
+                controller:
+                    timeController, //editing controller of this TextField
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.calendar_today), //icon of text field
+                    labelText: "Time" //label text of field
+                    ),
+                readOnly: true, // when true user cannot edit text
+                onTap: () async {
+                  TimeOfDay? time = await inputTime();
+                  setState(() {
+                    timeController.text = time.toString();
+                    dateTime = DateTime(widget.date!.year, widget.date!.month,
+                        widget.date!.day, time!.hour, time.minute);
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                content: 'calculate',
+                function: validateInput,
+              ),
+            ],
+          ),
         ),
       ),
     );

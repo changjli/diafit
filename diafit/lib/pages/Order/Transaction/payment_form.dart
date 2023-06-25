@@ -1,10 +1,9 @@
 import 'package:diafit/components/custom_button.dart';
-import 'package:diafit/components/custom_textfield.dart';
 import 'package:diafit/controller/custom_function.dart';
-import 'package:diafit/controller/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 
 // Define a custom Form widget.
 class PaymentForm extends StatefulWidget {
@@ -21,8 +20,10 @@ class PaymentFormState extends State<PaymentForm> {
   final _formKey = GlobalKey<FormState>();
   String apiToken = "";
 
-  final paymentController = TextEditingController();
+  final paymentController = SingleValueDropDownController();
   final voucherController = TextEditingController();
+  final deliveryController = SingleValueDropDownController();
+
   String? location = "";
 
   @override
@@ -56,9 +57,10 @@ class PaymentFormState extends State<PaymentForm> {
         },
         body: jsonEncode({
           "_method": 'put',
-          'payment': paymentController.text,
+          'payment': paymentController.dropDownValue!.value,
           'voucher_code': voucherController.text,
           'location': location,
+          'delivery': deliveryController.dropDownValue!.value,
         }),
       );
 
@@ -104,70 +106,150 @@ class PaymentFormState extends State<PaymentForm> {
     return Form(
       key: _formKey,
       child: Center(
-        child: Column(
-          children: <Widget>[
-            CustomTextfield(
-              content: 'payment',
-              icon: Icons.numbers,
-              controller: paymentController,
-              validator: Validator.servingValidator,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            CustomTextfield(
-              content: 'voucher',
-              icon: Icons.numbers,
-              controller: voucherController,
-              validator: Validator.servingValidator,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            const Text('Where do you want to pick up your food?'),
-            Column(
-              children: [
-                RadioListTile(
-                  title: const Text("Sudirman"),
-                  value: "Sudirman",
-                  groupValue: location,
-                  onChanged: (value) {
-                    setState(() {
-                      location = value.toString();
-                    });
-                  },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(
+                height: 20,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Payment'),
+              ),
+              DropDownTextField(
+                // initialValue: "name4",
+                controller: paymentController,
+                clearOption: true,
+                // enableSearch: true,
+                // dropdownColor: Colors.green,
+                searchDecoration: const InputDecoration(hintText: "payment"),
+                validator: (value) {
+                  if (value == null) {
+                    return "Required field";
+                  } else {
+                    return null;
+                  }
+                },
+                dropDownItemCount: 4,
+
+                dropDownList: const [
+                  DropDownValueModel(name: 'cash', value: "cash"),
+                  DropDownValueModel(name: 'ovo', value: "ovo"),
+                  DropDownValueModel(name: 'gopay', value: "gopay"),
+                  DropDownValueModel(name: 'dana', value: "dana"),
+                ],
+                onChanged: (val) {},
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              TextFormField(
+                controller: voucherController,
+                decoration: const InputDecoration(
+                  label: Text("voucher"),
                 ),
-                RadioListTile(
-                  title: const Text("Thamrin"),
-                  value: "Thamrin",
-                  groupValue: location,
-                  onChanged: (value) {
-                    setState(() {
-                      location = value.toString();
-                    });
-                  },
-                ),
-                RadioListTile(
-                  title: const Text("Fatmawati"),
-                  value: "Fatmawati",
-                  groupValue: location,
-                  onChanged: (value) {
-                    setState(() {
-                      location = value.toString();
-                    });
-                  },
-                )
-              ],
-            ),
-            CustomButton(
-              content: 'add',
-              function: validateInput,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            CustomButton(content: 'cancel', function: rollBack),
-          ],
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Choose a branch'),
+              ),
+              Column(
+                children: [
+                  RadioListTile(
+                    title: const Text("Sudirman"),
+                    value: "Sudirman",
+                    groupValue: location,
+                    onChanged: (value) {
+                      setState(() {
+                        location = value.toString();
+                      });
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("Thamrin"),
+                    value: "Thamrin",
+                    groupValue: location,
+                    onChanged: (value) {
+                      setState(() {
+                        location = value.toString();
+                      });
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("Fatmawati"),
+                    value: "Fatmawati",
+                    groupValue: location,
+                    onChanged: (value) {
+                      setState(() {
+                        location = value.toString();
+                      });
+                    },
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Delivery'),
+              ),
+              DropDownTextField(
+                // initialValue: "name4",
+                controller: deliveryController,
+                clearOption: true,
+                // enableSearch: true,
+                // dropdownColor: Colors.green,
+                searchDecoration: const InputDecoration(
+                    hintText: "enter your custom hint text here"),
+                validator: (value) {
+                  if (value == null) {
+                    return "Required field";
+                  } else {
+                    return null;
+                  }
+                },
+                dropDownItemCount: 2,
+
+                dropDownList: const [
+                  DropDownValueModel(name: 'gosend', value: "gosend"),
+                  DropDownValueModel(name: 'pickup', value: "pickup"),
+                ],
+                onChanged: (val) {},
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: 100,
+                    child: CustomButton(
+                      content: 'add',
+                      function: validateInput,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    width: 100,
+                    child: CustomButton(
+                      content: 'cancel',
+                      function: rollBack,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

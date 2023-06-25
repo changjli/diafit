@@ -32,7 +32,6 @@ class _HistoryState extends State<History> {
         if (output['success'] == true) {
           List data = output['data'];
           transactions = data;
-          print(transactions);
         } else {
           print('there is no data');
         }
@@ -48,85 +47,99 @@ class _HistoryState extends State<History> {
       appBar: AppBar(
         title: const Text('history'),
       ),
-      body: Column(
-        children: [
-          FutureBuilder(
-            future: getTransactions(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                if (snapshot.hasError) {
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder(
+              future: getTransactions(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                    child: Text('An error occured'),
+                    child: CircularProgressIndicator(),
                   );
                 } else {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: transactions.length,
-                    itemBuilder: (context, index) {
-                      return Text(
-                          transactions[index]['total_price'].toString());
-                    },
-                  );
+                  if (snapshot.hasError) {
+                    return const Center(
+                      child: Text('An error occured'),
+                    );
+                  } else {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: transactions.length,
+                      itemBuilder: (context, index) {
+                        return HistoryCard(
+                            transaction: transactions[index], function: () {});
+                      },
+                    );
+                  }
                 }
-              }
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-// class MenuCard extends StatelessWidget {
-//   final Map menu;
-//   const MenuCard({super.key, required this.menu});
+class HistoryCard extends StatelessWidget {
+  final Map transaction;
+  final Function function;
+  const HistoryCard({
+    super.key,
+    required this.transaction,
+    required this.function,
+  });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       color: Colors.white,
-//       elevation: 5,
-//       clipBehavior: Clip.hardEdge,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(25),
-//       ),
-//       child: InkWell(
-//           onTap: () {
-//             PersistentNavBarNavigator.pushNewScreen(
-//               context,
-//               screen: ShowMenu(date: menu['date'].toString()),
-//             );
-//           },
-//           child: Row(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Expanded(
-//                 flex: 1,
-//                 child: Column(
-//                   children: [
-//                     Text(DateFormat('EEEE')
-//                         .format(DateTime.parse(menu['date']))),
-//                     Text(menu['date']),
-//                   ],
-//                 ),
-//               ),
-//               const SizedBox(
-//                 width: 10,
-//               ),
-//               Expanded(
-//                 flex: 2,
-//                 child: Text(menu['food_count'].toString()),
-//               ),
-//               const SizedBox(
-//                 width: 10,
-//               )
-//             ],
-//           )),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5,
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: InkWell(
+          onTap: () {},
+          child: SizedBox(
+            height: 100,
+            width: MediaQuery.of(context).size.width - 20,
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${transaction['id']}",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        "${transaction['created_at']}",
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          letterSpacing: 2,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          )),
+    );
+  }
+}

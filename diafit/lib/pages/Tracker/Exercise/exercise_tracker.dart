@@ -143,9 +143,9 @@ class _ExerciseTrackerState extends State<ExerciseTracker> {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '+${records[index]["total_calories"].toString()}',
+                                  '-${records[index]["total_calories"].toString()}',
                                   style: const TextStyle(
-                                    color: Colors.red,
+                                    color: Colors.green,
                                     fontSize: 18,
                                   ),
                                 ),

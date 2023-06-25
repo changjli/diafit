@@ -73,7 +73,9 @@ class _ShowMenuState extends State<ShowMenu> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: foods.length,
                     itemBuilder: (context, index) {
-                      return FoodCard(food: foods[index]);
+                      return Column(children: [
+                        FoodCard(food: foods[index]),
+                      ]);
                     },
                   );
                 }
@@ -93,12 +95,11 @@ class FoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      elevation: 5,
-      clipBehavior: Clip.hardEdge,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(25)),
       ),
+      elevation: 3,
+      clipBehavior: Clip.hardEdge,
       child: InkWell(
           onTap: () {
             PersistentNavBarNavigator.pushNewScreen(
@@ -106,44 +107,44 @@ class FoodCard extends StatelessWidget {
               screen: ShowFood(foodId: food["id"]),
             );
           },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            constraints: const BoxConstraints(
-              minHeight: 100,
-            ),
-            child: IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: Image(
-                    image: NetworkImage(food["image"]),
-                  )),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${food['name']}",
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "Rp. ${food['price']}",
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
+          child: SizedBox(
+            height: 100,
+            width: MediaQuery.of(context).size.width - 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image(
+                  image: NetworkImage(food["image"]),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${food['name']}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2,
+                        color: Colors.black,
+                      ),
                     ),
-                  )
-                ],
-              ),
+                    Text(
+                      "Rp. ${food['price']}",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        letterSpacing: 2,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           )),
     );

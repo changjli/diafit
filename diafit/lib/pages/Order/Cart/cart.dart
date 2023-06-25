@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:input_quantity/input_quantity.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -44,6 +43,31 @@ class _CartState extends State<Cart> {
       print(e);
     }
   }
+
+  // Future<void> updateCart(int id, int quantity) async {
+  //   await getAuth();
+  //   try {
+  //     http.Response response = await http.post(
+  //       Uri.parse("http://10.0.2.2:8000/api/cart/$id"),
+  //       headers: {
+  //         "Authorization": "Bearer $apiToken",
+  //         'Content-Type': 'application/json; charset=UTF-8'
+  //       },
+  //       body: jsonEncode({
+  //         '_method': 'put',
+  //         'food_quantity': quantity,
+  //       }),
+  //     );
+
+  //     Map output = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200) {
+  //       print(output);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   // old transaction
   // Future<void> storeTransaction() async {
@@ -126,6 +150,28 @@ class _CartState extends State<Cart> {
   //   }
   // }
 
+  Future<void> deleteCart(String id) async {
+    await getAuth();
+    try {
+      http.Response response = await http.post(
+        Uri.parse("http://10.0.2.2:8000/api/cart/$id"),
+        headers: {
+          "Authorization": "Bearer $apiToken",
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonEncode({
+          '_method': 'delete',
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {});
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   // new transaction
   Future<void> processTransaction() async {
     await getAuth();
@@ -143,9 +189,7 @@ class _CartState extends State<Cart> {
           PersistentNavBarNavigator.pushNewScreen(context,
               screen: Payment(
                 transaction: data,
-              )).then((value) {
-            setState() {}
-          });
+              ));
         } else {
           print('error');
         }
@@ -157,6 +201,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    num? qty;
     return Scaffold(
       appBar: AppBar(
         title: const Text('cart'),
@@ -182,8 +227,12 @@ class _CartState extends State<Cart> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: carts.length,
                       itemBuilder: (context, index) {
-                        return CartCard(
-                            quantity: quantities[index], cart: carts[index]);
+                        return Column(children: [
+                          CartCard(
+                              cart: carts[index],
+                              qty: quantities[index],
+                              function: deleteCart)
+                        ]);
                       },
                     ),
                     ElevatedButton(
@@ -205,14 +254,19 @@ class _CartState extends State<Cart> {
 }
 
 class CartCard extends StatelessWidget {
-  final int quantity;
   final Map cart;
-  const CartCard({super.key, required this.quantity, required this.cart});
+  final int qty;
+  final Function function;
+  const CartCard(
+      {super.key,
+      required this.cart,
+      required this.qty,
+      required this.function});
 
   @override
   Widget build(BuildContext context) {
+    final int price = cart['price'] * qty;
     return Card(
-      color: Colors.white,
       elevation: 5,
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(
@@ -220,32 +274,58 @@ class CartCard extends StatelessWidget {
       ),
       child: InkWell(
           onTap: () {},
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(child: Image(image: NetworkImage(cart["image"]))),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Text(cart['name']),
-                    InputQty(
-                      maxVal: 100,
-                      initVal: quantity,
-                      minVal: -100,
-                      isIntrinsicWidth: false,
-                      borderShape: BorderShapeBtn.circle,
-                      boxDecoration: const BoxDecoration(),
-                      steps: 1,
-                      onQtyChanged: (val) {},
-                    ),
-                  ],
-                ),
+          child: SizedBox(
+            height: 100,
+            width: MediaQuery.of(context).size.width - 20,
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image(
+                    image: NetworkImage(cart['image']),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${cart['name']} x $qty",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        "Rp. $price",
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          letterSpacing: 2,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const VerticalDivider(
+                    width: 25,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      function(cart['id']);
+                    },
+                  )
+                ],
               ),
-              Expanded(
-                child: Text((cart['price'] * quantity).toString()),
-              )
-            ],
+            ),
           )),
     );
   }

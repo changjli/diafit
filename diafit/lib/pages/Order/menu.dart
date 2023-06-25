@@ -1,3 +1,4 @@
+import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/controller/custom_function.dart';
 import 'package:diafit/pages/Order/Cart/cart.dart';
 import 'package:diafit/pages/Order/Transaction/history.dart';
@@ -95,20 +96,31 @@ class _MenuState extends State<Menu> {
               }
             },
           ),
-          ElevatedButton(
-            onPressed: () async {
-              PersistentNavBarNavigator.pushNewScreen(context,
-                  screen: const Cart());
-            },
-            child: const Text('cart'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              PersistentNavBarNavigator.pushNewScreen(context,
-                  screen: const History());
-            },
-            child: const Text('history'),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                  height: 50,
+                  width: 100,
+                  child: CustomButton(
+                    content: 'cart',
+                    function: () async {
+                      PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: const Cart());
+                    },
+                  )),
+              SizedBox(
+                  height: 50,
+                  width: 100,
+                  child: CustomButton(
+                    content: 'history',
+                    function: () async {
+                      PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: const History());
+                    },
+                  )),
+            ],
+          )
         ],
       ),
     );
