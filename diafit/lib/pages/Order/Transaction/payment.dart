@@ -16,12 +16,14 @@ class _PaymentState extends State<Payment> {
       appBar: AppBar(
         title: const Text('Payment'),
       ),
-      body: Column(
-        children: [
-          PaymentForm(
-            transaction: widget.transaction,
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            PaymentForm(
+              transaction: widget.transaction,
+            )
+          ],
+        ),
       ),
     );
   }

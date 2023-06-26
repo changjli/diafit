@@ -25,6 +25,7 @@ class PaymentFormState extends State<PaymentForm> {
   final deliveryController = SingleValueDropDownController();
 
   String? location = "";
+  final ValueNotifier<int> deliveryPrice = ValueNotifier<int>(0);
 
   @override
   void dispose() {
@@ -61,6 +62,7 @@ class PaymentFormState extends State<PaymentForm> {
           'voucher_code': voucherController.text,
           'location': location,
           'delivery': deliveryController.dropDownValue!.value,
+          'deliveryPrice': deliveryPrice.value,
         }),
       );
 
@@ -102,6 +104,7 @@ class PaymentFormState extends State<PaymentForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.transaction);
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -201,7 +204,7 @@ class PaymentFormState extends State<PaymentForm> {
               DropDownTextField(
                 // initialValue: "name4",
                 controller: deliveryController,
-                clearOption: true,
+                clearOption: false,
                 // enableSearch: true,
                 // dropdownColor: Colors.green,
                 searchDecoration: const InputDecoration(
@@ -219,10 +222,145 @@ class PaymentFormState extends State<PaymentForm> {
                   DropDownValueModel(name: 'gosend', value: "gosend"),
                   DropDownValueModel(name: 'pickup', value: "pickup"),
                 ],
-                onChanged: (val) {},
+                onChanged: (val) {
+                  if (deliveryController.dropDownValue!.value == null) {
+                    deliveryPrice.value = 0;
+                  }
+                  if (deliveryController.dropDownValue!.value == "gosend") {
+                    deliveryPrice.value = 15000;
+                  } else {
+                    deliveryPrice.value = 0;
+                  }
+                },
               ),
               const SizedBox(
                 height: 20,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                width: MediaQuery.of(context).size.width / 1.23,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Color.fromARGB(255, 210, 210, 210),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Subtotal",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      "${widget.transaction['total_price']}",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                width: MediaQuery.of(context).size.width / 1.23,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Color.fromARGB(255, 210, 210, 210),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Delivery Fee",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: deliveryPrice,
+                      builder:
+                          (BuildContext context, int value, Widget? child) {
+                        // This builder will only get called when the _counter
+                        // is updated.
+                        return Text(
+                          "$value",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                width: MediaQuery.of(context).size.width / 1.23,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Total",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: deliveryPrice,
+                      builder:
+                          (BuildContext context, int value, Widget? child) {
+                        // This builder will only get called when the _counter
+                        // is updated.
+                        return Text(
+                          "${widget.transaction['total_price'] + value}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -246,6 +384,11 @@ class PaymentFormState extends State<PaymentForm> {
                       function: rollBack,
                     ),
                   ),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       deliveryPrice.value += 1;
+                  //     },
+                  //     child: const Text("tes"))
                 ],
               ),
             ],

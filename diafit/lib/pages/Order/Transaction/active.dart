@@ -1,7 +1,10 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/Transaction/detail_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Active extends StatefulWidget {
   const Active({super.key});
@@ -45,7 +48,7 @@ class _ActiveState extends State<Active> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('history'),
+        title: const Text('active'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -94,52 +97,76 @@ class HistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      clipBehavior: Clip.hardEdge,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: InkWell(
-          onTap: () {},
-          child: SizedBox(
-            height: 100,
-            width: MediaQuery.of(context).size.width - 20,
-            child: IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${transaction['id']}",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                          color: Colors.black,
-                        ),
+    Widget status = transaction['status'] == 'pending'
+        ? const Text(
+            'pending',
+            style: TextStyle(color: Colors.red),
+          )
+        : const Text(
+            'ready',
+            style: TextStyle(color: Colors.green),
+          );
+    return InkWell(
+      onTap: () {
+        print('hello world');
+        PersistentNavBarNavigator.pushNewScreen(context,
+            screen: TransactionDetail(transactionHeader: transaction));
+      },
+      child: Card(
+        elevation: 5,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: SizedBox(
+          height: 100,
+          width: MediaQuery.of(context).size.width - 20,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${transaction['id']}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2,
+                        color: Colors.black,
                       ),
-                      Text(
-                        "${transaction['created_at']}",
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          letterSpacing: 2,
-                          color: Colors.black,
-                        ),
+                    ),
+                    Text(
+                      "${transaction['created_at']}",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        letterSpacing: 2,
+                        color: Colors.black,
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                const VerticalDivider(
+                  width: 30,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                status
+              ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

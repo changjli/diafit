@@ -186,7 +186,6 @@ class _CartState extends State<Cart> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           Map data = output['data'];
-          print(data);
           PersistentNavBarNavigator.pushNewScreen(context,
               screen: Payment(
                 transaction: data,

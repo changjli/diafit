@@ -22,7 +22,7 @@ class _EditProfileState extends State<EditProfile> {
 
   var nameController = TextEditingController();
   var emailController = TextEditingController();
-  String? gender;
+  var genderController = TextEditingController();
   var ageController = TextEditingController();
   var heightController = TextEditingController();
   var weightController = TextEditingController();
@@ -70,6 +70,7 @@ class _EditProfileState extends State<EditProfile> {
         // initial value
         emailController.text = user["email"] ?? '';
         nameController.text = user["name"] ?? '';
+        genderController.text = user['gender'] ?? '';
         addressController.text = user["address"].toString() ?? '';
         ageController.text = user["age"].toString() ?? '';
         heightController.text = user["height"].toString() ?? '';
@@ -107,7 +108,7 @@ class _EditProfileState extends State<EditProfile> {
         body: jsonEncode({
           "_method": 'put',
           "name": nameController.text,
-          "gender": gender,
+          "gender": genderController.text,
           "age": int.parse(ageController.text),
           "height": double.parse(heightController.text),
           "weight": double.parse(weightController.text),
@@ -285,82 +286,10 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 170,
-                                height: 130,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        gender = 'male';
-                                      },
-                                    );
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    backgroundColor: gender == 'male'
-                                        ? Colors.blue
-                                        : Colors.white,
-                                    side: const BorderSide(
-                                      color: Colors.blue,
-                                      width: 2.0,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/men-icon.png',
-                                    width: 75,
-                                    height: 75,
-                                    color: gender == 'male'
-                                        ? Colors.white
-                                        : Colors.blue,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 170,
-                                height: 130,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        gender = 'female';
-                                      },
-                                    );
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    backgroundColor: gender == 'female'
-                                        ? Colors.pink
-                                        : Colors.white,
-                                    side: const BorderSide(
-                                      color: Colors.pink,
-                                      width: 2.0,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/women-icon.png',
-                                    width: 75,
-                                    height: 75,
-                                    color: gender == 'female'
-                                        ? Colors.white
-                                        : Colors.pink,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
                           TextFormField(
-                            controller: addressController,
+                            controller: genderController,
                             decoration: InputDecoration(
-                              label: const Text("Address"),
+                              label: const Text("Gender"),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -379,6 +308,7 @@ class _EditProfileState extends State<EditProfile> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 20),
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: ageController,

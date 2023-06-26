@@ -1,4 +1,5 @@
 import 'package:diafit/pages/Profile/edit_profile.dart';
+import 'package:diafit/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:diafit/controller/custom_function.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -161,25 +162,34 @@ class _ProfileState extends State<Profile> {
                 height: 5,
               ),
               const Divider(),
-              ListTile(
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: const Color.fromARGB(255, 198, 119, 230),
+              InkWell(
+                onTap: () {
+                  CustomFunction.logout(
+                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const Login())),
+                    id,
+                  );
+                },
+                child: ListTile(
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: const Color.fromARGB(255, 198, 119, 230),
+                    ),
+                    child: const Icon(
+                      LineAwesomeIcons.alternate_sign_out,
+                      color: Colors.white,
+                    ),
                   ),
-                  child: const Icon(
-                    LineAwesomeIcons.alternate_sign_out,
-                    color: Colors.white,
-                  ),
-                ),
-                title: const Text(
-                  "Log Out",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
+                  title: const Text(
+                    "Log Out",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

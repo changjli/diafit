@@ -21,9 +21,9 @@ Future<void> main() async {
         fontFamily: 'Poppins',
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color(0xFF3641B7),
+          primary: Color.fromARGB(255, 190, 103, 193),
           onPrimary: Colors.white,
-          secondary: Color(0xFFD9DBFF),
+          secondary: Color.fromARGB(255, 198, 119, 230),
           onSecondary: Color(0xFF3641B7),
           error: Color(0xFF931A1A),
           onError: Colors.white,

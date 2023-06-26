@@ -1,7 +1,10 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/Transaction/detail_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -101,7 +104,10 @@ class HistoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       ),
       child: InkWell(
-          onTap: () {},
+          onTap: () {
+            PersistentNavBarNavigator.pushNewScreen(context,
+                screen: TransactionDetail(transactionHeader: transaction));
+          },
           child: SizedBox(
             height: 100,
             width: MediaQuery.of(context).size.width - 20,
@@ -136,6 +142,19 @@ class HistoryCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const VerticalDivider(
+                    width: 30,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    'done',
+                    style: TextStyle(color: Colors.grey),
+                  )
                 ],
               ),
             ),
