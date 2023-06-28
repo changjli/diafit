@@ -31,32 +31,18 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(LineAwesomeIcons.angle_left),
-          color: Colors.black,
-        ),
         title: const Center(
           child: Text(
             "Profile",
             style: TextStyle(
-              fontFamily: 'Montserrat',
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: Colors.black,
             ),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.settings),
-            color: Colors.black,
-          )
-        ],
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -78,24 +64,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              const Text(
-                "Diafit's Admin",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 24,
-                ),
-              ),
-              const Text(
-                "diafit.Admin@gmail.com",
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 18,
-                  color: Color.fromARGB(159, 0, 0, 0),
-                ),
-              ),
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
               SizedBox(
                 width: 240,
@@ -106,7 +76,7 @@ class _ProfileState extends State<Profile> {
                     screen: const EditProfile(),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 190, 103, 193),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     side: BorderSide.none,
                     shape: const StadiumBorder(),
                   ),
@@ -123,45 +93,12 @@ class _ProfileState extends State<Profile> {
               const SizedBox(
                 height: 30,
               ),
-              ListTile(
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: const Color.fromARGB(255, 198, 119, 230),
-                  ),
-                  child: const Icon(
-                    LineAwesomeIcons.user,
-                    color: Colors.white,
-                  ),
-                ),
-                title: const Text(
-                  "My Account",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                trailing: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: const Color.fromARGB(255, 198, 119, 230),
-                  ),
-                  child: const Icon(
-                    LineAwesomeIcons.angle_right,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
+              const Divider(
+                height: 10,
+                indent: 0,
+                endIndent: 0,
+                thickness: 1,
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Divider(),
               InkWell(
                 onTap: () {
                   CustomFunction.logout(
@@ -176,7 +113,7 @@ class _ProfileState extends State<Profile> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: const Color.fromARGB(255, 198, 119, 230),
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     child: const Icon(
                       LineAwesomeIcons.alternate_sign_out,
@@ -193,8 +130,11 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              const Divider(
+                height: 10,
+                indent: 0,
+                endIndent: 0,
+                thickness: 1,
               ),
               ListTile(
                 leading: Container(
@@ -202,7 +142,7 @@ class _ProfileState extends State<Profile> {
                   height: 40,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: const Color.fromARGB(255, 198, 119, 230),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   child: const Icon(
                     LineAwesomeIcons.trash_restore,
@@ -217,6 +157,12 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+              ),
+              const Divider(
+                height: 10,
+                indent: 0,
+                endIndent: 0,
+                thickness: 1,
               ),
             ],
           ),

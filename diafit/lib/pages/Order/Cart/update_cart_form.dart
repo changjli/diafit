@@ -1,22 +1,21 @@
 import 'package:diafit/controller/custom_function.dart';
-import 'package:diafit/pages/Order/Cart/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:input_quantity/input_quantity.dart';
 
 // Define a custom Form widget.
-class CreateCartForm extends StatefulWidget {
+class UpdateCartForm extends StatefulWidget {
   final Map food;
-  const CreateCartForm({super.key, required this.food});
+  const UpdateCartForm({super.key, required this.food});
 
   @override
-  CreateCartFormState createState() {
-    return CreateCartFormState();
+  UpdateCartFormState createState() {
+    return UpdateCartFormState();
   }
 }
 
-class CreateCartFormState extends State<CreateCartForm> {
+class UpdateCartFormState extends State<UpdateCartForm> {
   final _formKey = GlobalKey<FormState>();
   String apiToken = "";
 
@@ -28,6 +27,12 @@ class CreateCartFormState extends State<CreateCartForm> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    subPrice.value = widget.food['quantity'] * widget.food['price'];
+  }
+
   Future<void> getAuth() async {
     Map auth = await CustomFunction.getAuth();
     apiToken = auth['apiToken'];
@@ -37,20 +42,20 @@ class CreateCartFormState extends State<CreateCartForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
-    storeCart();
+    updateCart();
   }
 
-  Future<void> storeCart() async {
+  Future<void> updateCart() async {
     await getAuth();
     try {
       http.Response response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/cart"),
+        Uri.parse("http://10.0.2.2:8000/api/cart/${widget.food['id']}"),
         headers: {
           "Authorization": "Bearer $apiToken",
           'Content-Type': 'application/json; charset=UTF-8'
         },
         body: jsonEncode({
-          "food_id": widget.food['id'],
+          "_method": 'put',
           "food_quantity": quantityController,
         }),
       );
@@ -58,12 +63,7 @@ class CreateCartFormState extends State<CreateCartForm> {
       Map output = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const Cart(),
-          ),
-        );
+        Navigator.pop(context);
       }
     } catch (e) {
       print(e);
@@ -88,7 +88,7 @@ class CreateCartFormState extends State<CreateCartForm> {
               key: _formKey,
               child: InputQty(
                 maxVal: 100,
-                initVal: 0,
+                initVal: widget.food['quantity'],
                 minVal: -100,
                 isIntrinsicWidth: false,
                 borderShape: BorderShapeBtn.circle,
@@ -123,7 +123,7 @@ class CreateCartFormState extends State<CreateCartForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Add to cart",
+                      "Update cart",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -157,37 +157,5 @@ class CreateCartFormState extends State<CreateCartForm> {
         ],
       ),
     );
-    // return Form(
-    //   key: _formKey,
-    //   child: Center(
-    //     child: Row(
-    //       children: <Widget>[
-    //         Expanded(
-    //           child: InputQty(
-    //             maxVal: 100,
-    //             initVal: 0,
-    //             minVal: -100,
-    //             isIntrinsicWidth: false,
-    //             borderShape: BorderShapeBtn.circle,
-    //             boxDecoration: const BoxDecoration(),
-    //             steps: 1,
-    //             onQtyChanged: (val) {
-    //               quantityController = val;
-    //             },
-    //           ),
-    //         ),
-    //         const SizedBox(
-    //           height: 20.0,
-    //         ),
-    //         Expanded(
-    //           child: CustomButton(
-    //             content: 'add',
-    //             function: validateInput,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/controller/custom_function.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -77,7 +76,6 @@ class _NutritionReportState extends State<NutritionReport> {
           List data = output['data'];
           setState(() {
             nutritions = data.map((d) => Nutrition.fromJson(d)).toList();
-            print(nutritions[0]);
           });
         } else {
           print("there is no data");
@@ -95,49 +93,84 @@ class _NutritionReportState extends State<NutritionReport> {
         title: const Text('Home'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Form(
-              key: _formKey,
-              child: Center(
-                child: Column(children: <Widget>[
-                  TextField(
-                    controller:
-                        startDateController, //editing controller of this TextField
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.calendar_today), //icon of text field
-                        labelText: "Start Date" //label text of field
-                        ),
-                    readOnly: true, // when true user cannot edit text
-                    onTap: () async {
-                      date = await datePicker();
-                      setState(() {
-                        startDateController.text = date.toString();
-                        startDate = date;
-                      });
-                    },
-                  ),
-                  TextField(
-                      controller: endDateController,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Form(
+                key: _formKey,
+                child: Center(
+                  child: Column(children: <Widget>[
+                    TextField(
+                      controller:
+                          startDateController, //editing controller of this TextField
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.calendar_today),
-                        labelText: "End Date",
-                      ),
-                      readOnly: true,
+                          icon: Icon(Icons.calendar_today), //icon of text field
+                          labelText: "Start Date" //label text of field
+                          ),
+                      readOnly: true, // when true user cannot edit text
                       onTap: () async {
                         date = await datePicker();
                         setState(() {
-                          endDateController.text = date.toString();
-                          endDate = date;
+                          startDateController.text = date.toString();
+                          startDate = date;
                         });
-                      }),
-                  CustomButton(
-                      content: 'generate', function: getNutritionReport),
-                  NutritionChart(nutritions: nutritions),
-                ]),
+                      },
+                    ),
+                    TextField(
+                        controller: endDateController,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.calendar_today),
+                          labelText: "End Date",
+                        ),
+                        readOnly: true,
+                        onTap: () async {
+                          date = await datePicker();
+                          setState(() {
+                            endDateController.text = date.toString();
+                            endDate = date;
+                          });
+                        }),
+                  ]),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              NutritionChart(nutritions: nutritions),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 50,
+                width: 150,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  )),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'Calculate',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    getNutritionReport();
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
 
@@ -158,14 +191,20 @@ class _NutritionChartState extends State<NutritionChart> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-        primaryXAxis: DateTimeAxis(),
-        series: <LineSeries<Nutrition, DateTime>>[
-          LineSeries<Nutrition, DateTime>(
-            dataSource: widget.nutritions,
-            xValueMapper: (Nutrition data, _) => data.date,
-            yValueMapper: (Nutrition data, _) => data.calories_consumed,
-          )
-        ]);
+      primaryXAxis: DateTimeAxis(
+        intervalType: DateTimeIntervalType.days,
+        interval: 1,
+        rangePadding: ChartRangePadding.additional,
+      ),
+      series: <LineSeries<Nutrition, DateTime>>[
+        LineSeries<Nutrition, DateTime>(
+          dataSource: widget.nutritions,
+          xValueMapper: (Nutrition data, _) => data.date,
+          yValueMapper: (Nutrition data, _) => data.calories_consumed,
+        )
+      ],
+      zoomPanBehavior: ZoomPanBehavior(enablePinching: true),
+    );
   }
 }
 
@@ -176,5 +215,7 @@ class Nutrition {
 
   Nutrition.fromJson(Map json)
       : date = DateTime.parse(json["date"]),
-        calories_consumed = json["calories_consumed"];
+        calories_consumed = json["calories_consumed"].runtimeType == double
+            ? json["calories_consumed"]
+            : json["calories_consumed"].toDouble();
 }

@@ -27,6 +27,7 @@ class _SummaryState extends State<Summary> {
 
   double nutritionPercentage = 0.0;
   double exercisePercentage = 0.0;
+  double glucosePercentage = 0.0;
 
   Future<void> getAuth() async {
     Map temp = await CustomFunction.getAuth();
@@ -53,7 +54,7 @@ class _SummaryState extends State<Summary> {
         // goals
         nutritionGoal = double.tryParse(user['nutritionGoal']);
         exerciseGoal = double.tryParse(user['exerciseGoal']);
-        // glucoseGoal = double.tryParse(user['glucoseGoal']);
+        glucoseGoal = double.tryParse(user['glucoseGoal']);
 
         await getNutritionReport();
         await getExerciseReport();
@@ -69,6 +70,10 @@ class _SummaryState extends State<Summary> {
         if (exercisePercentage > 1) {
           exercisePercentage = 1;
         }
+        glucosePercentage = glucose != null ? (glucose! / glucoseGoal!) : 0.0;
+        if (glucosePercentage > 1) {
+          glucosePercentage = 1;
+        }
       }
     } catch (e) {
       print(e);
@@ -83,6 +88,8 @@ class _SummaryState extends State<Summary> {
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);
+
+      print(output);
 
       if (response.statusCode == 200) {
         if (output['success'] == true) {
@@ -105,6 +112,8 @@ class _SummaryState extends State<Summary> {
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);
+
+      print(output);
 
       if (response.statusCode == 200) {
         if (output['success'] == true) {
@@ -131,6 +140,7 @@ class _SummaryState extends State<Summary> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
+          glucose = data[0]['sugar_level'].toDouble();
         } else {
           print("there is no data");
         }
@@ -164,9 +174,10 @@ class _SummaryState extends State<Summary> {
                   animation: true,
                   percent: nutritionPercentage,
                   center: Text(
-                    "${(nutritionPercentage * 100).toStringAsFixed(3)}%",
+                    "${nutrition!.toStringAsFixed(1)} / $nutritionGoal",
+                    // "${(nutritionPercentage * 100).toStringAsFixed(3)}%",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20.0),
+                        fontWeight: FontWeight.bold, fontSize: 10),
                   ),
                   footer: const Text(
                     "Nutrition",
@@ -180,11 +191,12 @@ class _SummaryState extends State<Summary> {
                   radius: 60,
                   lineWidth: 13.0,
                   animation: true,
-                  percent: 0.7,
+                  percent: glucosePercentage,
                   center: Text(
-                    "${exercisePercentage * 100}%",
+                    "${glucose!.toStringAsFixed(1)} / $glucoseGoal",
+                    // "${glucosePercentage * 100}%",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20.0),
+                        fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   footer: const Text(
                     "Glucose",
@@ -200,9 +212,10 @@ class _SummaryState extends State<Summary> {
                   animation: true,
                   percent: exercisePercentage,
                   center: Text(
-                    "${(exercisePercentage * 100).toStringAsFixed(3)}%",
+                    "${exercise!.toStringAsFixed(1)} / $exerciseGoal",
+                    // "${(exercisePercentage * 100).toStringAsFixed(3)}%",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20.0),
+                        fontWeight: FontWeight.bold, fontSize: 10),
                   ),
                   footer: const Text(
                     "Exercise",

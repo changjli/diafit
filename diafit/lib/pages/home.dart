@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
 
         nutritionGoal = double.parse(user['nutritionGoal']);
         exerciseGoal = double.parse(user['exerciseGoal']);
-        // glucoseGoal = double.parse(user['glucoseGoal']);
+        glucoseGoal = 200;
 
         await getNutritionReport();
         await getExerciseReport();
@@ -108,6 +108,7 @@ class _HomeState extends State<Home> {
       if (response.statusCode == 200) {
         if (output['success'] == true) {
           List data = output['data'];
+          glucose = double.tryParse(data[0]['sugar_level']);
         } else {
           print("there is no data");
         }

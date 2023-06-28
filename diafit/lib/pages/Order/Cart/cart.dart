@@ -208,6 +208,9 @@ class _CartState extends State<Cart> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           FutureBuilder(
             future: getCart(),
             builder: (context, snapshot) {
@@ -228,19 +231,12 @@ class _CartState extends State<Cart> {
                       itemCount: carts.length,
                       itemBuilder: (context, index) {
                         return Column(children: [
-                          CartCard(
+                          MyCard(
                               cart: carts[index],
                               qty: quantities[index],
                               function: deleteCart)
                         ]);
                       },
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        // await storeTransaction();
-                        await processTransaction();
-                      },
-                      child: const Text('check out'),
                     ),
                   ]);
                 }
@@ -249,15 +245,59 @@ class _CartState extends State<Cart> {
           ),
         ],
       ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  )),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Checkout',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 25,
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    processTransaction();
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class CartCard extends StatelessWidget {
+class MyCard extends StatelessWidget {
   final Map cart;
   final int qty;
   final Function function;
-  const CartCard(
+  const MyCard(
       {super.key,
       required this.cart,
       required this.qty,
@@ -290,32 +330,35 @@ class CartCard extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${cart['name']} x $qty",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                          color: Colors.black,
+                  SizedBox(
+                    width: 190,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${cart['name']} x $qty",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Rp. $price",
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          letterSpacing: 2,
-                          color: Colors.black,
+                        Text(
+                          "Rp. $price",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            letterSpacing: 2,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const VerticalDivider(
-                    width: 25,
+                    width: 5,
                     thickness: 1,
                     indent: 0,
                     endIndent: 0,

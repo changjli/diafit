@@ -29,26 +29,30 @@ class _LoginState extends State<Login> {
             Column(
               children: [
                 const SizedBox(
-                  height: 50.0,
+                  height: 50,
                 ),
-                Text(
-                  'Welcome Back',
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const Image(image: AssetImage('assets/images/diafit.png')),
                 const SizedBox(
-                  height: 10.0,
+                  height: 30,
                 ),
-                Text(
-                  'Log in to your account',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
+                // Text(
+                //   'Welcome Back',
+                //   style: TextStyle(
+                //     fontSize: 40,
+                //     color: Theme.of(context).colorScheme.primary,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 10.0,
+                // ),
+                // Text(
+                //   'Log in to your account',
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //     color: Theme.of(context).colorScheme.primary,
+                //   ),
+                // ),
                 const LoginForm(),
                 RichText(
                   text: TextSpan(

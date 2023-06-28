@@ -74,35 +74,119 @@ class _ResultNutritionState extends State<ResultNutrition> {
       appBar: AppBar(
         title: const Text('Nutrition Result'),
       ),
-      body: Column(
-        children: [
-          Text(widget.result['name']),
-          Text(widget.result['serving_size_g'].toString()),
-          Form(
-            key: _formKey,
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 150,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(25),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'Summary',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
+                  const Divider(
+                    height: 10,
+                    indent: 0,
+                    endIndent: 0,
+                    thickness: 1,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "Food     :   ${widget.result['name']}",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.onSecondary),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "Serving  :   ${widget.result['serving_size_g'].toString()}g",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.onSecondary),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Form(
+              key: _formKey,
+              child: Center(
                 child: Column(
                   children: <Widget>[
                     TextFormField(
                       controller: caloriesController,
                       decoration: const InputDecoration(
-                        label: Text("voucher"),
+                        label: Text("Calories"),
                       ),
                     ),
                     const SizedBox(
                       height: 20.0,
                     ),
-                    ElevatedButton(
-                        onPressed: () => storeNutrition(),
-                        child: const Text('store')),
+                    SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Store',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          storeNutrition();
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

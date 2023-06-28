@@ -1,4 +1,7 @@
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/Order/Cart/cart.dart';
+import 'package:diafit/pages/Order/Transaction/active.dart';
+import 'package:diafit/pages/Order/Transaction/history.dart';
 import 'package:diafit/pages/Order/show_food.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -55,6 +58,9 @@ class _ShowMenuState extends State<ShowMenu> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           FutureBuilder(
             future: getFoods(),
             builder: (context, snapshot) {
@@ -83,6 +89,97 @@ class _ShowMenuState extends State<ShowMenu> {
             },
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              height: 50,
+              width: 125,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                )),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.shopping_cart,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Cart',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(context,
+                      screen: const Cart());
+                },
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              width: 120,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                )),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.receipt,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Order',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(context,
+                      screen: const Active());
+                },
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              width: 125,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                )),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'History',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(context,
+                      screen: const History());
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

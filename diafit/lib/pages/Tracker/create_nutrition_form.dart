@@ -1,4 +1,3 @@
-import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/controller/validator.dart';
 import 'package:diafit/pages/Tracker/result_nutrition.dart';
 import 'package:flutter/material.dart';
@@ -161,9 +160,71 @@ class CreateNutritionFormState extends State<CreateNutritionForm> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(
-                content: 'calculate',
-                function: validateInput,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'API',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          validateInput();
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Manual',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: ResultNutrition(result: {
+                              "name": foodController.text,
+                              "serving_size_g": servingController.text
+                            }, date: dateTime),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:diafit/components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -67,7 +64,6 @@ class CreateGlucoseFormState extends State<CreateGlucoseForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
-    print(widget.date);
     storeGlucose();
   }
 
@@ -94,11 +90,11 @@ class CreateGlucoseFormState extends State<CreateGlucoseForm> {
                 decoration: const InputDecoration(
                   label: Row(
                     children: [
-                      Icon(Icons.change_history_rounded),
+                      Icon(Icons.line_axis),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('sugar level'),
+                      Text('Sugar level'),
                     ],
                   ),
                 ),
@@ -127,9 +123,29 @@ class CreateGlucoseFormState extends State<CreateGlucoseForm> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(
-                content: 'calculate',
-                function: validateInput,
+              SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  )),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'Add',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    validateInput();
+                  },
+                ),
               ),
             ],
           ),

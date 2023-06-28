@@ -1,5 +1,5 @@
-import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/controller/custom_function.dart';
+import 'package:diafit/pages/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -46,7 +46,7 @@ class PaymentFormState extends State<PaymentForm> {
     updateTransaction();
   }
 
-  Future<void> updateTransaction() async {
+  Future<bool> updateTransaction() async {
     await getAuth();
     try {
       http.Response response = await http.post(
@@ -70,10 +70,13 @@ class PaymentFormState extends State<PaymentForm> {
 
       if (response.statusCode == 200) {
         Map data = output['data'];
-        print(data);
+        return true;
+      } else {
+        return false;
       }
     } catch (e) {
       print(e);
+      return false;
     }
   }
 
@@ -365,30 +368,63 @@ class PaymentFormState extends State<PaymentForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 50,
-                    width: 100,
-                    child: CustomButton(
-                      content: 'add',
-                      function: validateInput,
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Cancel',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          rollBack();
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  SizedBox(
-                    height: 50,
-                    width: 100,
-                    child: CustomButton(
-                      content: 'cancel',
-                      function: rollBack,
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Finish',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () async {
+                          bool status = await updateTransaction();
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => MyDialog(
+                              status: status,
+                            ),
+                          ).then((value) {
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
                     ),
                   ),
-                  // ElevatedButton(
-                  //     onPressed: () {
-                  //       deliveryPrice.value += 1;
-                  //     },
-                  //     child: const Text("tes"))
                 ],
               ),
             ],

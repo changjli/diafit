@@ -15,6 +15,7 @@ class _PaymentState extends State<Payment> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Payment'),
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(

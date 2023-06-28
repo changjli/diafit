@@ -1,4 +1,3 @@
-import 'package:diafit/components/custom_button.dart';
 import 'package:diafit/pages/Tracker/Exercise/result_exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -152,9 +151,71 @@ class CreateExerciseFormState extends State<CreateExerciseForm> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(
-                content: 'calculate',
-                function: validateInput,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'API',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          validateInput();
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Manual',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: ResultExercise(result: {
+                              "name": exerciseController.text,
+                              "duration_minutes": durationController.text
+                            }, date: dateTime),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
