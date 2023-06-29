@@ -66,7 +66,7 @@ class _NutritionReportState extends State<NutritionReport> {
     try {
       http.Response response = await http.get(
           Uri.parse(
-              "http://10.0.2.2:8000/api/nutrition/report/summary?start_date=$startDate&end_date=$endDate"),
+              "http://10.0.2.2:8000/api/nutrition/interval?start_date=$startDate&end_date=$endDate"),
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);

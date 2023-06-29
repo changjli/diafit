@@ -19,14 +19,20 @@ class _RegisterState extends State<Register> {
         appBar: AppBar(),
         body: Column(
           children: [
-            Text(
-              'Register',
-              style: TextStyle(
-                fontSize: 40,
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
+            const SizedBox(
+              height: 50,
             ),
+            const Image(
+              image: AssetImage('assets/images/image 5.png'),
+            ),
+            // Text(
+            //   'Register',
+            //   style: TextStyle(
+            //     fontSize: 40,
+            //     color: Theme.of(context).colorScheme.primary,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
             const SizedBox(
               height: 10.0,
             ),
@@ -35,12 +41,13 @@ class _RegisterState extends State<Register> {
               style: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
               ),
             ),
             const RegisterForm(),
           ],
         ),
-        // bottomSheet: Image.asset('assets/images/Book.png'),
+        bottomSheet: Image.asset('assets/images/Vector (1).png'),
       ),
     );
   }

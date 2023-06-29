@@ -60,6 +60,10 @@ class _SummaryState extends State<Summary> {
         await getExerciseReport();
         await getGlucoseReport();
 
+        nutrition = nutrition ?? 0.0;
+        exercise = exercise ?? 0.0;
+        glucose = glucose ?? 0.0;
+
         nutritionPercentage =
             nutrition != null ? (nutrition! / nutritionGoal!) : 0.0;
         if (nutritionPercentage > 1) {

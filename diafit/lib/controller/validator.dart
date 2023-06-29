@@ -28,4 +28,11 @@ class Validator {
     }
     return null;
   }
+
+  static String? passwordConfirmationValidator(String? value1, String? value2) {
+    if (value1 != value2) {
+      return 'mismatch';
+    }
+    return null;
+  }
 }

@@ -51,19 +51,22 @@ class _ProfileState extends State<Profile> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 170,
-                    height: 170,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(120),
-                      child: const Image(
-                          image: AssetImage("assets/images/profile.jpg")),
-                    ),
-                  ),
-                ],
+              const Image(
+                image: AssetImage('assets/images/image 5.png'),
               ),
+              // Stack(
+              //   children: [
+              //     SizedBox(
+              //       width: 170,
+              //       height: 170,
+              //       child: ClipRRect(
+              //         borderRadius: BorderRadius.circular(120),
+              //         child: const Image(
+              //             image: AssetImage("assets/images/profile.jpg")),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
                 height: 30,
               ),

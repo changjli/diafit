@@ -29,11 +29,13 @@ class _LoginState extends State<Login> {
             Column(
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 150,
                 ),
-                const Image(image: AssetImage('assets/images/diafit.png')),
+                const Image(
+                  image: AssetImage('assets/images/image 5.png'),
+                ),
                 const SizedBox(
-                  height: 30,
+                  height: 50,
                 ),
                 // Text(
                 //   'Welcome Back',
@@ -79,10 +81,10 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
-            // Align(
-            //   alignment: Alignment.bottomCenter,
-            //   child: Image.asset('assets/images/Vector.png'),
-            // )
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset('assets/images/Vector (1).png'),
+            )
           ],
         ),
       ),

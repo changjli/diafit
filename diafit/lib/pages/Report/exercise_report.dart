@@ -66,10 +66,11 @@ class _ExerciseReportState extends State<ExerciseReport> {
     try {
       http.Response response = await http.get(
           Uri.parse(
-              "http://10.0.2.2:8000/api/exercise/report/summary?start_date=$startDate&end_date=$endDate"),
+              "http://10.0.2.2:8000/api/exercise/interval?start_date=$startDate&end_date=$endDate"),
           headers: {"Authorization": "Bearer $apiToken"});
 
       Map output = jsonDecode(response.body);
+      print(output);
 
       if (response.statusCode == 200) {
         if (output['success'] == true) {

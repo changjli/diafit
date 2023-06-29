@@ -96,7 +96,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 30,
             ),
             CustomTextfield(
-                content: 'email',
+                content: 'Email',
                 icon: Icons.email,
                 controller: emailController,
                 validator: Validator.emailValidator),

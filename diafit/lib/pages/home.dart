@@ -175,23 +175,38 @@ class _HomeState extends State<Home> {
       {
         "name": "Glucose",
         "screen": const GlucoseTracker(),
-        "route": "/GlucoseTracker"
+        "route": "/GlucoseTracker",
+        "bg": "assets/images/colorkit.png",
       },
       {
         "name": "Nutrition",
         "screen": const NutritionTracker(),
-        "route": "/NutritionTracker"
+        "route": "/NutritionTracker",
+        "bg": "assets/images/colorkit (1).png",
       },
       {
         "name": "Exercise",
         "screen": const ExerciseTracker(),
-        "route": "/ExerciseTracker"
+        "route": "/ExerciseTracker",
+        "bg": "assets/images/colorkit (2).png",
       },
     ];
     List<Map> reportItem = [
-      {"name": "Glucose", "screen": const GlucoseReport()},
-      {"name": "Nutrition", "screen": const NutritionReport()},
-      {"name": "Exercise", "screen": const ExerciseReport()},
+      {
+        "name": "Glucose",
+        "screen": const GlucoseReport(),
+        "bg": "assets/images/colorkit (5).png"
+      },
+      {
+        "name": "Nutrition",
+        "screen": const NutritionReport(),
+        "bg": "assets/images/colorkit (4).png"
+      },
+      {
+        "name": "Exercise",
+        "screen": const ExerciseReport(),
+        "bg": "assets/images/colorkit (3).png"
+      },
     ];
     return Scaffold(
       appBar: AppBar(
@@ -313,13 +328,21 @@ class _HomeState extends State<Home> {
                               )),
                       child: Container(
                           width: 200,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("${i['bg']}"),
+                                fit: BoxFit.cover),
                             color: Colors.amber,
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(25)),
                           ),
+                          alignment: Alignment.center,
                           child: Text(
-                            "${i['name']} Tracker",
-                            style: const TextStyle(fontSize: 16.0),
+                            "${i['name']}",
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           )),
                     );
                   },
@@ -372,13 +395,21 @@ class _HomeState extends State<Home> {
                           screen: i["screen"]),
                       child: Container(
                           width: 200,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("${i['bg']}"),
+                                fit: BoxFit.cover),
                             color: Colors.amber,
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(25)),
                           ),
+                          alignment: Alignment.center,
                           child: Text(
-                            "${i['name']} Report",
-                            style: const TextStyle(fontSize: 16.0),
+                            "${i['name']}",
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           )),
                     );
                   },
